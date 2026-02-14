@@ -1,0 +1,137 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Header from '@/components/layout/Header.astro';
+import Footer from '@/components/layout/Footer.astro';
+import Breadcrumb from '@/components/ui/Breadcrumb.astro';
+import FinalCTA from '@/components/sections/FinalCTA.astro';
+import { getMarketConfig } from '@/utils/market-config';
+import { defaults } from '@/config/defaults';
+import { buildBreadcrumbSchema, replaceTokens } from '@/utils/seo';
+
+const config = getMarketConfig();
+const page = defaults.how_it_works_page;
+const r = (t: string) => replaceTokens(t, config);
+
+const title = r(page.title_tag_template);
+const description = r(page.meta_description_template);
+
+const breadcrumbSchema = buildBreadcrumbSchema(config.domain, [
+  { name: 'Home', url: '/' },
+  { name: 'How It Works', url: '/how-it-works' },
+]);
+---
+
+<BaseLayout title={title} description={description} canonicalPath="/how-it-works" jsonLd={[breadcrumbSchema]}>
+  <Header solid />
+  <Breadcrumb items={[{ label: 'Home', href: '/' }]} current="How It Works" />
+
+  <main>
+    <!-- Page header -->
+    <section class="pb-12">
+      <div class="wrap">
+        <span class="font-(family-name:--font-headline) font-bold text-[13px] uppercase tracking-[0.12em] text-green mb-3 inline-block">{defaults.how_it_works.tag}</span>
+        <h1 class="font-(family-name:--font-headline) font-extrabold uppercase leading-[1.08] text-dark mb-5" style="font-size: clamp(30px, 4.5vw, 50px);">
+          {r(page.h1_template)}
+        </h1>
+        <p class="text-[17px] text-gray-500 leading-relaxed max-w-[640px]">
+          {page.intro}
+        </p>
+      </div>
+    </section>
+
+    <!-- Expanded steps -->
+    <section class="py-16 bg-gray-50">
+      <div class="wrap">
+        {page.steps_expanded.map((step, i) => (
+          <div class:list={[
+            'reveal flex gap-8 items-start mb-14 last:mb-0 max-sm:flex-col',
+            i === 1 && 'reveal-d1',
+            i === 2 && 'reveal-d2',
+            i === 3 && 'reveal-d3',
+          ]}>
+            <div class="w-16 h-16 rounded-full bg-green text-white flex items-center justify-center font-(family-name:--font-headline) font-extrabold text-2xl shrink-0">
+              {i + 1}
+            </div>
+            <div>
+              <h2 class="font-(family-name:--font-headline) font-bold text-[22px] uppercase mb-1">
+                {step.title}
+              </h2>
+              <p class="text-sm text-green font-medium mb-3">{step.summary}</p>
+              <p class="text-[15px] text-gray-600 leading-relaxed max-w-[640px]">
+                {r('detail_template' in step ? (step as any).detail_template : step.detail)}
+              </p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <!-- Why cash vs agent teaser -->
+    <section class="py-16">
+      <div class="wrap max-w-[700px] reveal">
+        <h2 class="font-(family-name:--font-headline) font-extrabold uppercase leading-[1.08] text-dark mb-4" style="font-size: clamp(24px, 3.5vw, 36px);">
+          Why Sellers Choose Cash
+        </h2>
+        <ul class="space-y-3 text-[15px] text-gray-600 leading-relaxed">
+          <li class="flex items-start gap-3">
+            <span class="text-green font-bold text-lg leading-none mt-0.5">&#10003;</span>
+            <span><strong class="text-gray-800">Zero fees.</strong> No agent commission (typically 6%), no closing costs, no repair bills.</span>
+          </li>
+          <li class="flex items-start gap-3">
+            <span class="text-green font-bold text-lg leading-none mt-0.5">&#10003;</span>
+            <span><strong class="text-gray-800">Your timeline.</strong> Close in as few as 7 days or take up to 60 — you decide.</span>
+          </li>
+          <li class="flex items-start gap-3">
+            <span class="text-green font-bold text-lg leading-none mt-0.5">&#10003;</span>
+            <span><strong class="text-gray-800">Sell as-is.</strong> No repairs, no staging, no open houses. Leave what you don't want.</span>
+          </li>
+          <li class="flex items-start gap-3">
+            <span class="text-green font-bold text-lg leading-none mt-0.5">&#10003;</span>
+            <span><strong class="text-gray-800">Certainty.</strong> No lender fall-throughs. Cash means done.</span>
+          </li>
+        </ul>
+        <p class="mt-6 text-[15px] text-gray-500">
+          Want the full math? <a href="/#math-comparison" class="text-green font-semibold underline hover:text-green-dark transition-colors">See exactly what you walk away with</a> when you compare a cash offer to selling with an agent.
+        </p>
+      </div>
+    </section>
+
+    <!-- CTA section -->
+    <section class="py-16 bg-green-light border-y border-green/10">
+      <div class="wrap text-center reveal">
+        <h2 class="font-(family-name:--font-headline) font-extrabold uppercase text-dark mb-3" style="font-size: clamp(24px, 3.5vw, 38px);">
+          {page.cta_headline}
+        </h2>
+        <p class="text-gray-500 mb-7">{page.cta_subtext}</p>
+        <div class="flex justify-center flex-wrap gap-3">
+          <a
+            href="/#lead-form"
+            class="inline-block font-(family-name:--font-headline) font-bold text-[17px] uppercase tracking-wide py-[15px] px-9 rounded-lg bg-gradient-to-br from-amber to-amber-light text-white shadow-[0_4px_16px_var(--color-amber-glow)] transition-all duration-200 hover:translate-y-[-1px] hover:shadow-[0_6px_24px_var(--color-amber-glow)]"
+          >
+            {page.cta_text}
+          </a>
+          <a
+            href={`tel:${config.company.phone_raw}`}
+            class="inline-flex items-center gap-2 py-[15px] px-7 text-base font-semibold text-dark border-2 border-gray-200 rounded-lg transition-all duration-200 hover:border-green hover:text-green"
+          >
+            Call {config.company.phone}
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Internal links -->
+    <section class="py-12">
+      <div class="wrap text-center text-[15px] text-gray-500 space-x-4">
+        <a href="/about" class="text-green font-semibold underline hover:text-green-dark transition-colors">Learn about our team</a>
+        <span class="text-gray-300">|</span>
+        <a href={`/situations/${config.situations[0]?.slug || 'foreclosure'}`} class="text-green font-semibold underline hover:text-green-dark transition-colors">{config.situations[0]?.title || 'Foreclosure'}</a>
+        <span class="text-gray-300">|</span>
+        <a href={`/situations/${config.situations[1]?.slug || 'inherited-property'}`} class="text-green font-semibold underline hover:text-green-dark transition-colors">{config.situations[1]?.title || 'Inherited Property'}</a>
+      </div>
+    </section>
+  </main>
+
+  <FinalCTA />
+  <Footer />
+</BaseLayout>

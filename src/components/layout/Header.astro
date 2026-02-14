@@ -1,7 +1,12 @@
 ---
 import { getMarketConfig } from '@/utils/market-config';
 
+interface Props {
+  solid?: boolean;
+}
+
 const config = getMarketConfig();
+const { solid = false } = Astro.props;
 ---
 
 <!-- Mobile call bar -->
@@ -12,7 +17,7 @@ const config = getMarketConfig();
 </div>
 
 <!-- Navigation -->
-<nav id="mainNav" class="fixed top-0 left-0 right-0 z-[1000] transition-all duration-300 max-md:top-[42px]">
+<nav id="mainNav" class:list={['fixed top-0 left-0 right-0 z-[1000] transition-all duration-300 max-md:top-[42px]', solid && 'nav-scrolled']} data-solid={solid ? 'true' : undefined}>
   <div class="wrap">
     <div class="nav-inner flex items-center justify-between py-4 transition-all duration-300">
       <a href="/" class="font-(family-name:--font-headline) font-extrabold text-2xl uppercase tracking-tight text-white transition-colors duration-300 nav-logo">
@@ -29,7 +34,7 @@ const config = getMarketConfig();
           {config.company.phone}
         </a>
         <a
-          href="#lead-form"
+          href={solid ? '/#lead-form' : '#lead-form'}
           class="font-(family-name:--font-headline) font-bold text-[13px] uppercase tracking-wider py-2.5 px-5 rounded-md bg-gradient-to-br from-amber to-amber-light text-white shadow-[0_2px_8px_var(--color-amber-glow)] hover:translate-y-[-1px] hover:shadow-[0_4px_16px_var(--color-amber-glow)] transition-all duration-200"
         >
           Get My Offer
@@ -42,7 +47,9 @@ const config = getMarketConfig();
 <script>
   const nav = document.getElementById('mainNav');
   if (nav) {
+    const isSolid = nav.dataset.solid === 'true';
     const onScroll = () => {
+      if (isSolid) return;
       const scrolled = window.scrollY > 60;
       nav.classList.toggle('nav-scrolled', scrolled);
     };
