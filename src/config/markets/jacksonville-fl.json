@@ -1,0 +1,193 @@
+{
+  "market_id": "jacksonville-fl",
+  "city": "Jacksonville",
+  "state": "FL",
+  "state_full": "Florida",
+  "metro": "Jacksonville Metro",
+  "domain": "cashhomebuyerjacksonville.com",
+
+  "company": {
+    "name": "Sunshine Home Buyers",
+    "phone": "(904) 555-0147",
+    "phone_raw": "9045550147",
+    "email": "info@sunshinehomebuyers.com",
+    "address": {
+      "street": "1847 King St",
+      "city": "Jacksonville",
+      "state": "FL",
+      "zip": "32204",
+      "full": "1847 King St, Jacksonville, FL 32204"
+    }
+  },
+
+  "seo": {
+    "primary_keyword": "sell my house fast jacksonville",
+    "secondary_keywords": [
+      "cash home buyers jacksonville",
+      "we buy houses jacksonville fl",
+      "sell house fast jacksonville fl",
+      "cash for houses jacksonville"
+    ],
+    "title_tag": "Sell Your House Fast in Jacksonville FL | Cash Offer in 24 Hours",
+    "meta_description": "Get a fair cash offer on your Jacksonville home in 24 hours. No agents, no fees, no repairs. Close in as fast as 7 days. Local buyers, not a national chain."
+  },
+
+  "market_data": {
+    "avg_days_on_market": 52,
+    "avg_commission_pct": 6,
+    "avg_closing_cost_pct": 2,
+    "homes_purchased": "200+",
+    "google_rating": "4.9",
+    "avg_close_days": 14,
+    "years_in_business": 5
+  },
+
+  "compliance": {
+    "state_requires_disclosure": false,
+    "cancellation_period_days": 0,
+    "sms_consent_required": true
+  },
+
+  "neighborhoods": [
+    {
+      "name": "Riverside",
+      "slug": "riverside",
+      "zip": "32204",
+      "description": "Historic neighborhood with older homes, many needing updates. Strong wholesaling demand from fix-and-flip investors."
+    },
+    {
+      "name": "Westside",
+      "slug": "westside",
+      "zip": "32210",
+      "description": "Affordable area with high foreclosure activity. Cash buyers actively purchasing rental properties."
+    },
+    {
+      "name": "Southside",
+      "slug": "southside",
+      "zip": "32256",
+      "description": "Growing suburban area. Tired landlords and relocating homeowners are common seller profiles."
+    },
+    {
+      "name": "Arlington",
+      "slug": "arlington",
+      "zip": "32211",
+      "description": "Established area with aging housing stock. Inherited properties and deferred maintenance common."
+    },
+    {
+      "name": "San Marco",
+      "slug": "san-marco",
+      "zip": "32207",
+      "description": "Walkable urban neighborhood. Higher property values but strong investor interest for renovation projects."
+    }
+  ],
+
+  "situations": [
+    {
+      "title": "Facing Foreclosure",
+      "slug": "foreclosure",
+      "keyword": "sell house foreclosure jacksonville",
+      "short_desc": "Don't lose your equity. We can close before your lender takes action.",
+      "hero_headline": "Facing Foreclosure in Jacksonville? We Can Help You Sell Fast."
+    },
+    {
+      "title": "Inherited Property",
+      "slug": "inherited-property",
+      "keyword": "sell inherited house jacksonville",
+      "short_desc": "Dealing with probate? We handle the complexity so you don't have to.",
+      "hero_headline": "Inherited a Jacksonville Home You Don't Want? Get a Cash Offer."
+    },
+    {
+      "title": "Going Through Divorce",
+      "slug": "divorce",
+      "keyword": "sell house divorce jacksonville",
+      "short_desc": "Split the asset quickly and fairly. Cash offers simplify settlement.",
+      "hero_headline": "Going Through a Divorce? Sell Your Jacksonville Home Fast for Cash."
+    },
+    {
+      "title": "Behind on Payments",
+      "slug": "behind-on-payments",
+      "keyword": "behind on mortgage jacksonville",
+      "short_desc": "Stop the bleeding. Sell now and walk away without the debt spiraling.",
+      "hero_headline": "Behind on Mortgage Payments in Jacksonville? We Buy Houses for Cash."
+    },
+    {
+      "title": "Relocating",
+      "slug": "relocating",
+      "keyword": "sell house fast relocating jacksonville",
+      "short_desc": "Need to move quickly? We close on your timeline so you can go.",
+      "hero_headline": "Relocating from Jacksonville? Sell Your Home Fast Without the Hassle."
+    },
+    {
+      "title": "Property Needs Repairs",
+      "slug": "needs-repairs",
+      "keyword": "sell house as is jacksonville",
+      "short_desc": "We buy as-is. No inspections, no repair requests, no contractor hassles.",
+      "hero_headline": "Home Needs Repairs? We Buy Jacksonville Houses As-Is for Cash."
+    },
+    {
+      "title": "Code Violations",
+      "slug": "code-violations",
+      "keyword": "sell house code violations jacksonville",
+      "short_desc": "Fines piling up? We buy houses with code violations — no questions asked.",
+      "hero_headline": "Code Violations on Your Jacksonville Property? We'll Buy It As-Is."
+    },
+    {
+      "title": "Tired Landlord",
+      "slug": "tired-landlord",
+      "keyword": "sell rental property jacksonville",
+      "short_desc": "Bad tenants? Expensive maintenance? Cash out and reclaim your peace of mind.",
+      "hero_headline": "Tired of Being a Landlord? Sell Your Jacksonville Rental for Cash."
+    }
+  ],
+
+  "testimonials": [
+    {
+      "name": "Marcus T.",
+      "location": "Westside, Jacksonville",
+      "problem": "Facing foreclosure — 2 months behind",
+      "outcome": "They gave me a fair offer and we closed in 11 days. Literally saved my credit. No pressure at any point.",
+      "timeframe": "11 days"
+    },
+    {
+      "name": "Linda & James R.",
+      "location": "Riverside, Jacksonville",
+      "problem": "Inherited home needing $40K in repairs",
+      "outcome": "They bought it as-is and handled all the probate paperwork. Huge weight off our shoulders during an already hard time.",
+      "timeframe": "18 days"
+    },
+    {
+      "name": "Diana S.",
+      "location": "Southside, Jacksonville",
+      "problem": "Divorce — needed a clean break",
+      "outcome": "No agents, no showings, no strangers walking through. Just a fair offer and a fresh start. Genuinely no pressure.",
+      "timeframe": "9 days"
+    }
+  ],
+
+  "faq": [
+    {
+      "question": "Will I get a lowball offer?",
+      "answer": "We don't do that. Here's what most sellers miss: when you sell through an agent, you lose 6% in commissions, 2% in closing costs, and often $10K–$30K in repairs just to get the house 'show ready.' Our offer is a NET number — what you see is what you walk away with. Zero commissions, zero closing costs, zero repair bills. When you compare apples to apples, our offers are competitive."
+    },
+    {
+      "question": "Is this a scam? How do I know you're legit?",
+      "answer": "Fair question — a lot of 'we buy houses' people are sketchy. We're local Jacksonville investors with a real office at 1847 King St. We use standard Florida contracts and close at a reputable local title company where your funds are protected by a neutral third party. You can look us up, visit us, and verify everything before you sign anything."
+    },
+    {
+      "question": "How fast can you actually close?",
+      "answer": "As fast as 7 days if you need it. The average home listed with an agent in Jacksonville sits on the market for 52 days — and that's before inspections, appraisals, and buyer financing delays that can add weeks or kill the deal entirely. We pay cash, so there's no lender involved. You pick the date, we show up with the funds."
+    },
+    {
+      "question": "Do I need to clean or make repairs?",
+      "answer": "No. We buy homes in any condition — hoarder situations, fire damage, foundation issues, 30-year-old kitchens, you name it. Leave whatever you don't want. We handle everything after closing."
+    },
+    {
+      "question": "What if I owe more than the house is worth?",
+      "answer": "We can still help. We work with lenders on short sales and have experience navigating these situations. Even if the numbers are tight, it's worth a conversation — we may be able to structure something that gets you out from under the debt without a foreclosure on your record."
+    },
+    {
+      "question": "Is there any obligation if I fill out the form?",
+      "answer": "None. You'll get a cash offer, and you can take it or leave it. No pressure, no follow-up calls you didn't ask for, no contracts to sign until you're ready. We'd rather earn your trust than push a deal."
+    }
+  ]
+}
