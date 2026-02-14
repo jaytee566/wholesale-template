@@ -1,0 +1,62 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Header from '@/components/layout/Header.astro';
+import Footer from '@/components/layout/Footer.astro';
+import Breadcrumb from '@/components/ui/Breadcrumb.astro';
+import { getMarketConfig } from '@/utils/market-config';
+import { defaults } from '@/config/defaults';
+import { buildBreadcrumbSchema, replaceTokens } from '@/utils/seo';
+
+const config = getMarketConfig();
+const page = defaults.privacy_policy;
+const r = (t: string) => replaceTokens(t, config);
+
+const title = r(page.title_tag_template);
+const description = r(page.meta_description_template);
+
+const breadcrumbSchema = buildBreadcrumbSchema(config.domain, [
+  { name: 'Home', url: '/' },
+  { name: 'Privacy Policy', url: '/privacy-policy' },
+]);
+---
+
+<BaseLayout title={title} description={description} canonicalPath="/privacy-policy" jsonLd={[breadcrumbSchema]}>
+  <Header solid />
+  <Breadcrumb items={[{ label: 'Home', href: '/' }]} current="Privacy Policy" />
+
+  <main>
+    <section class="py-12">
+      <div class="wrap">
+        <div class="max-w-[700px]">
+          <h1 class="font-(family-name:--font-headline) font-extrabold uppercase leading-[1.08] text-dark mb-3" style="font-size: clamp(26px, 4vw, 42px);">
+            {r(page.h1_template)}
+          </h1>
+          <p class="text-sm text-gray-400 mb-10">Effective date: {page.effective_date}</p>
+
+          {page.sections.map((section) => (
+            <div class="mb-8">
+              <h2 class="font-(family-name:--font-headline) font-bold text-[20px] uppercase mb-2 text-dark">
+                {section.heading}
+              </h2>
+              <p class="text-[15px] text-gray-600 leading-relaxed">
+                {r(section.content)}
+              </p>
+            </div>
+          ))}
+
+          <!-- Internal links -->
+          <div class="mt-12 pt-8 border-t border-gray-100 text-[15px] text-gray-500 space-y-2">
+            <p>
+              <a href="/terms" class="text-green font-semibold underline hover:text-green-dark transition-colors">Terms of Service</a>
+            </p>
+            <p>
+              <a href="/" class="text-green font-semibold underline hover:text-green-dark transition-colors">&larr; Return to homepage</a>
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <Footer />
+</BaseLayout>

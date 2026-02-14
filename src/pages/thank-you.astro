@@ -1,0 +1,99 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Header from '@/components/layout/Header.astro';
+import Footer from '@/components/layout/Footer.astro';
+import { getMarketConfig } from '@/utils/market-config';
+import { defaults } from '@/config/defaults';
+import { replaceTokens } from '@/utils/seo';
+
+const config = getMarketConfig();
+const page = defaults.thank_you_page;
+const r = (t: string) => replaceTokens(t, config);
+
+const title = r(page.title_tag_template);
+const description = r(page.meta_description_template);
+---
+
+<BaseLayout title={title} description={description} canonicalPath="/thank-you" noindex>
+  <Header solid />
+
+  <main class="pt-28 pb-16 max-md:pt-24">
+    <!-- Success card -->
+    <section class="py-12">
+      <div class="wrap flex justify-center">
+        <div class="max-w-[560px] w-full text-center">
+          <!-- Green checkmark -->
+          <div class="w-20 h-20 rounded-full bg-green mx-auto mb-6 flex items-center justify-center">
+            <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+            </svg>
+          </div>
+
+          <h1 class="font-(family-name:--font-headline) font-extrabold uppercase leading-[1.08] text-dark mb-3" style="font-size: clamp(26px, 4vw, 42px);">
+            We're Preparing Your {config.city} Cash Offer
+          </h1>
+          <p class="text-[16px] text-gray-500 leading-relaxed mb-8 mx-auto max-w-[440px]">
+            {page.subtitle}
+          </p>
+
+          <!-- Expect call highlight -->
+          <div class="bg-amber/10 border border-amber/20 rounded-xl py-5 px-6 mb-8">
+            <p class="font-(family-name:--font-headline) font-bold text-[20px] uppercase text-dark mb-1">
+              {page.expect_call}
+            </p>
+            <p class="text-sm text-gray-500">
+              {page.expect_detail}
+            </p>
+          </div>
+
+          <!-- Photo placeholder -->
+          <div class="w-[120px] h-[120px] rounded-full bg-gray-100 border-2 border-dashed border-gray-200 mx-auto mb-5 flex items-center justify-center text-gray-400 text-[11px] text-center p-3">
+            Joel's photo
+          </div>
+
+          <!-- Call CTA -->
+          <p class="text-[15px] text-gray-500 mb-3">{page.cant_wait}</p>
+          <a
+            href={`tel:${config.company.phone_raw}`}
+            class="inline-flex items-center gap-2 font-(family-name:--font-headline) font-bold text-[20px] text-green hover:text-green-dark transition-colors"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5">
+              <path d="M6.62 10.79a15.05 15.05 0 006.59 6.59l2.2-2.2a1 1 0 011.01-.24c1.12.37 2.33.57 3.58.57a1 1 0 011 1V20a1 1 0 01-1 1A17 17 0 013 4a1 1 0 011-1h3.5a1 1 0 011 1c0 1.25.2 2.46.57 3.58a1 1 0 01-.24 1.01l-2.2 2.2z" />
+            </svg>
+            {config.company.phone}
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Next steps -->
+    <section class="py-12 bg-gray-50 border-y border-gray-100">
+      <div class="wrap max-w-[560px]">
+        <h2 class="font-(family-name:--font-headline) font-bold text-[20px] uppercase text-dark mb-6 text-center">
+          {page.next_steps_title}
+        </h2>
+        <ol class="space-y-4">
+          {page.next_steps.map((step, i) => (
+            <li class="flex items-start gap-4">
+              <span class="w-8 h-8 rounded-full bg-green text-white flex items-center justify-center font-(family-name:--font-headline) font-bold text-sm shrink-0">
+                {i + 1}
+              </span>
+              <p class="text-[15px] text-gray-600 leading-relaxed pt-1">{step}</p>
+            </li>
+          ))}
+        </ol>
+      </div>
+    </section>
+
+    <!-- Return home link -->
+    <section class="py-10">
+      <div class="wrap text-center">
+        <a href="/" class="text-green font-semibold text-[15px] underline hover:text-green-dark transition-colors">
+          &larr; Return to homepage
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <Footer />
+</BaseLayout>

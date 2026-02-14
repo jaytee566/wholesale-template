@@ -1,0 +1,124 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Header from '@/components/layout/Header.astro';
+import Footer from '@/components/layout/Footer.astro';
+import Breadcrumb from '@/components/ui/Breadcrumb.astro';
+import FinalCTA from '@/components/sections/FinalCTA.astro';
+import { getMarketConfig } from '@/utils/market-config';
+import { defaults } from '@/config/defaults';
+import { buildBreadcrumbSchema, replaceTokens } from '@/utils/seo';
+
+const config = getMarketConfig();
+const page = defaults.about_page;
+const r = (t: string) => replaceTokens(t, config);
+
+const title = r(page.title_tag_template);
+const description = r(page.meta_description_template);
+
+const breadcrumbSchema = buildBreadcrumbSchema(config.domain, [
+  { name: 'Home', url: '/' },
+  { name: 'About Us', url: '/about' },
+]);
+
+const trustValues: Record<string, string> = {
+  homes_purchased: config.market_data.homes_purchased + '+',
+  google_rating: config.market_data.google_rating + ' ★',
+  years_in_business: config.market_data.years_in_business + '+',
+  avg_close_days: config.market_data.avg_close_days + ' days',
+};
+---
+
+<BaseLayout title={title} description={description} canonicalPath="/about" jsonLd={[breadcrumbSchema]}>
+  <Header solid />
+  <Breadcrumb items={[{ label: 'Home', href: '/' }]} current="About Us" />
+
+  <main>
+    <!-- Page header -->
+    <section class="pb-8">
+      <div class="wrap">
+        <span class="font-(family-name:--font-headline) font-bold text-[13px] uppercase tracking-[0.12em] text-green mb-3 inline-block">{defaults.about.tag}</span>
+        <h1 class="font-(family-name:--font-headline) font-extrabold uppercase leading-[1.08] text-dark mb-5" style="font-size: clamp(28px, 4vw, 48px);">
+          {r(page.h1_template)}
+        </h1>
+      </div>
+    </section>
+
+    <!-- Owner bio -->
+    <section class="pb-16">
+      <div class="wrap">
+        <div class="grid grid-cols-[240px_1fr] gap-10 items-start reveal max-md:grid-cols-1">
+          <!-- Photo placeholder -->
+          <div class="w-[240px] h-[300px] rounded-xl bg-gray-100 border-2 border-dashed border-gray-200 flex items-center justify-center text-gray-400 text-xs text-center p-4 max-md:mx-auto">
+            {page.owner_name}'s photo<br />(required before launch)
+          </div>
+
+          <div>
+            <p class="font-(family-name:--font-headline) font-bold text-[20px] uppercase text-dark mb-0.5">
+              {page.owner_name}
+            </p>
+            <p class="text-sm text-green font-semibold mb-5">{page.owner_role}, {config.company.name}</p>
+
+            {page.story_paragraphs.map((para) => (
+              <p class="text-[15px] text-gray-600 leading-relaxed mb-4">
+                {r(para)}
+              </p>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Why we do this -->
+    <section class="py-14 bg-green-light border-y border-green/10">
+      <div class="wrap max-w-[700px] text-center reveal">
+        <h2 class="font-(family-name:--font-headline) font-extrabold uppercase leading-[1.08] text-dark mb-4" style="font-size: clamp(24px, 3.5vw, 36px);">
+          {page.why_title}
+        </h2>
+        <p class="text-[16px] text-gray-600 leading-relaxed">
+          {r(page.why_text)}
+        </p>
+      </div>
+    </section>
+
+    <!-- Trust signals -->
+    <section class="py-16">
+      <div class="wrap">
+        <div class="grid grid-cols-4 gap-6 max-md:grid-cols-2 max-[480px]:grid-cols-1">
+          {page.trust_signals.map((signal, i) => (
+            <div class:list={['reveal text-center py-8 px-4 rounded-xl bg-gray-50 border border-gray-100', i > 0 && `reveal-d${Math.min(i, 3)}`]}>
+              <p class="font-(family-name:--font-headline) font-extrabold text-green mb-1" style="font-size: clamp(28px, 3vw, 40px);">
+                {trustValues[signal.value_key] || '—'}
+              </p>
+              <p class="text-sm text-gray-500 font-medium">{signal.label}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- Office location -->
+    <section class="pb-16">
+      <div class="wrap reveal">
+        <div class="bg-gray-50 rounded-xl border border-gray-100 p-8 max-w-[600px]">
+          <h2 class="font-(family-name:--font-headline) font-bold text-[18px] uppercase text-dark mb-2">Our Office</h2>
+          <p class="text-[15px] text-gray-600 mb-1">{config.company.address.full}</p>
+          <p class="text-sm text-gray-400">Walk-ins welcome. All closings at a local title company.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Internal links -->
+    <section class="pb-12">
+      <div class="wrap text-[15px] text-gray-500 space-x-4">
+        <a href="/how-it-works" class="text-green font-semibold underline hover:text-green-dark transition-colors">See our 4-step process</a>
+        <span class="text-gray-300">|</span>
+        <a href="/#lead-form" class="text-green font-semibold underline hover:text-green-dark transition-colors">Get your cash offer</a>
+        <span class="text-gray-300">|</span>
+        <a href={`/situations/${config.situations[0]?.slug || 'foreclosure'}`} class="text-green font-semibold underline hover:text-green-dark transition-colors">{config.situations[0]?.title || 'Foreclosure'}</a>
+      </div>
+    </section>
+  </main>
+
+  <FinalCTA />
+  <Footer />
+</BaseLayout>
