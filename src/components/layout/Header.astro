@@ -1,0 +1,74 @@
+---
+import { getMarketConfig } from '@/utils/market-config';
+
+const config = getMarketConfig();
+---
+
+<!-- Mobile call bar -->
+<div class="hidden max-md:block bg-green text-white text-center py-2.5 px-4 text-sm font-semibold relative z-[1001]">
+  <a href={`tel:${config.company.phone_raw}`} class="text-white underline">
+    Call now for a free offer: {config.company.phone}
+  </a>
+</div>
+
+<!-- Navigation -->
+<nav id="mainNav" class="fixed top-0 left-0 right-0 z-[1000] transition-all duration-300 max-md:top-[42px]">
+  <div class="wrap">
+    <div class="nav-inner flex items-center justify-between py-4 transition-all duration-300">
+      <a href="/" class="font-(family-name:--font-headline) font-extrabold text-2xl uppercase tracking-tight text-white transition-colors duration-300 nav-logo">
+        {config.company.name}
+      </a>
+      <div class="flex items-center gap-5">
+        <a
+          href={`tel:${config.company.phone_raw}`}
+          class="hidden sm:flex items-center gap-1.5 font-(family-name:--font-headline) font-bold text-base text-white transition-colors duration-300 nav-phone-link"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-4 h-4">
+            <path d="M6.62 10.79a15.05 15.05 0 006.59 6.59l2.2-2.2a1 1 0 011.01-.24c1.12.37 2.33.57 3.58.57a1 1 0 011 1V20a1 1 0 01-1 1A17 17 0 013 4a1 1 0 011-1h3.5a1 1 0 011 1c0 1.25.2 2.46.57 3.58a1 1 0 01-.24 1.01l-2.2 2.2z" />
+          </svg>
+          {config.company.phone}
+        </a>
+        <a
+          href="#lead-form"
+          class="font-(family-name:--font-headline) font-bold text-[13px] uppercase tracking-wider py-2.5 px-5 rounded-md bg-gradient-to-br from-amber to-amber-light text-white shadow-[0_2px_8px_var(--color-amber-glow)] hover:translate-y-[-1px] hover:shadow-[0_4px_16px_var(--color-amber-glow)] transition-all duration-200"
+        >
+          Get My Offer
+        </a>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<script>
+  const nav = document.getElementById('mainNav');
+  if (nav) {
+    const onScroll = () => {
+      const scrolled = window.scrollY > 60;
+      nav.classList.toggle('nav-scrolled', scrolled);
+    };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+  }
+</script>
+
+<style>
+  #mainNav {
+    background: transparent;
+  }
+  #mainNav.nav-scrolled {
+    background: rgba(255, 255, 255, 0.97);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+  }
+  #mainNav.nav-scrolled .nav-inner {
+    padding-top: 0.625rem;
+    padding-bottom: 0.625rem;
+  }
+  #mainNav.nav-scrolled .nav-logo {
+    color: var(--color-black);
+  }
+  #mainNav.nav-scrolled .nav-phone-link {
+    color: var(--color-green);
+  }
+</style>

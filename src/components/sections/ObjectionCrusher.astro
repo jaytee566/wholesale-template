@@ -1,0 +1,18 @@
+---
+import { defaults } from '@/config/defaults';
+
+const items = defaults.objection_crusher;
+---
+
+<div class="bg-dark border-t border-white/[0.04] py-[18px]">
+  <div class="wrap">
+    <ul class="flex flex-wrap justify-center gap-x-8 gap-y-3 list-none">
+      {items.map((item) => (
+        <li class="flex items-center gap-2 text-[13px] font-medium text-white/70">
+          <span class="text-red font-bold text-sm">&#10007;</span>
+          {item}
+        </li>
+      ))}
+    </ul>
+  </div>
+</div>

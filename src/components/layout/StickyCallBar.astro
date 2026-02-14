@@ -1,0 +1,45 @@
+---
+import { getMarketConfig } from '@/utils/market-config';
+
+const config = getMarketConfig();
+---
+
+<!-- Smart Sticky Bar (mobile) -->
+<div class="fixed bottom-0 left-0 right-0 z-[99] hidden max-md:flex shadow-[0_-4px_20px_rgba(0,0,0,0.2)]" id="stickyBar">
+  <a
+    href={`tel:${config.company.phone_raw}`}
+    class="flex-1 flex justify-center items-center gap-[7px] py-3.5 px-2.5 bg-gradient-to-br from-green to-emerald-500 text-white text-sm font-bold no-underline"
+  >
+    Call Now
+  </a>
+  <button
+    class="flex-1 flex justify-center items-center gap-[7px] py-3.5 px-2.5 bg-gradient-to-br from-amber to-amber-light text-white text-sm font-bold border-none cursor-pointer"
+    id="stickyOfferBtn"
+  >
+    Get Cash Offer
+  </button>
+</div>
+<!-- Spacer for sticky bar on mobile -->
+<div class="hidden max-md:block h-[52px]"></div>
+
+<script>
+  const stickyBtn = document.getElementById('stickyOfferBtn');
+  const formCard = document.getElementById('formCard');
+
+  // Smart text change when form is visible
+  if (stickyBtn && formCard && 'IntersectionObserver' in window) {
+    new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          stickyBtn.textContent = entry.isIntersecting ? 'Finish Request' : 'Get Cash Offer';
+        });
+      },
+      { threshold: 0.15 }
+    ).observe(formCard);
+  }
+
+  // Scroll to form on click
+  stickyBtn?.addEventListener('click', () => {
+    document.getElementById('lead-form')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
+</script>

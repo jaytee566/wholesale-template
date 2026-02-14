@@ -1,0 +1,92 @@
+---
+import { getMarketConfig } from '@/utils/market-config';
+import '@/styles/global.css';
+
+interface Props {
+  title: string;
+  description: string;
+  canonicalPath?: string;
+  jsonLd?: Record<string, unknown>[];
+}
+
+const config = getMarketConfig();
+const { title, description, canonicalPath = '/', jsonLd = [] } = Astro.props;
+const canonicalUrl = `https://${config.domain}${canonicalPath}`;
+
+// Default LocalBusiness schema
+const localBusinessSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'RealEstateAgent',
+  name: config.company.name,
+  description: config.seo.meta_description,
+  url: `https://${config.domain}`,
+  telephone: `+1${config.company.phone_raw}`,
+  address: {
+    '@type': 'PostalAddress',
+    streetAddress: config.company.address.street,
+    addressLocality: config.company.address.city,
+    addressRegion: config.company.address.state,
+    postalCode: config.company.address.zip,
+    addressCountry: 'US',
+  },
+  areaServed: {
+    '@type': 'City',
+    name: config.city,
+    containedInPlace: { '@type': 'State', name: config.state_full },
+  },
+  priceRange: '$$',
+};
+
+const allSchemas = [localBusinessSchema, ...jsonLd];
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href={canonicalUrl} />
+
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonicalUrl} />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    {allSchemas.map((schema) => (
+      <script type="application/ld+json" set:html={JSON.stringify(schema)} />
+    ))}
+  </head>
+  <body class="font-(family-name:--font-body) text-base leading-relaxed bg-white">
+    <slot />
+
+    <script>
+      // Scroll reveal observer
+      if ('IntersectionObserver' in window) {
+        const observer = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+                observer.unobserve(entry.target);
+              }
+            });
+          },
+          { threshold: 0.12 }
+        );
+        document.querySelectorAll('.reveal').forEach((el) => observer.observe(el));
+      } else {
+        document.querySelectorAll('.reveal').forEach((el) => el.classList.add('visible'));
+      }
+    </script>
+  </body>
+</html>

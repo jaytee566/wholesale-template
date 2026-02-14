@@ -1,0 +1,47 @@
+---
+import { defaults } from '@/config/defaults';
+import { getMarketConfig } from '@/utils/market-config';
+
+const config = getMarketConfig();
+const hiw = defaults.how_it_works;
+---
+
+<section class="py-20" id="how-it-works">
+  <div class="wrap">
+    <div class="text-center mb-12 max-w-[640px] mx-auto">
+      <span class="font-(family-name:--font-headline) font-bold text-[13px] uppercase tracking-[0.12em] text-green mb-3 inline-block">{hiw.tag}</span>
+      <h2 class="font-(family-name:--font-headline) font-extrabold uppercase leading-[1.08] text-dark mb-4" style="font-size: clamp(30px, 4vw, 46px);">
+        {hiw.title}
+      </h2>
+      <p class="text-[17px] text-gray-500 mx-auto leading-relaxed">No banks. No agents. No months of waiting.</p>
+    </div>
+
+    <div class="steps-row grid grid-cols-4 gap-8 max-md:grid-cols-2 max-md:gap-6 max-[480px]:grid-cols-1" style="counter-reset: step;">
+      {hiw.steps.map((step, i) => (
+        <div class:list={['reveal text-center relative', i === 1 && 'reveal-d1', i === 2 && 'reveal-d2', i === 3 && 'reveal-d3']}>
+          <div class="step-num w-14 h-14 rounded-full bg-green text-white inline-flex items-center justify-center font-(family-name:--font-headline) font-extrabold text-[22px] mb-[18px] relative z-[1]" style={`counter-increment: step;`}>
+            {i + 1}
+          </div>
+          <h3 class="font-(family-name:--font-headline) font-bold text-[19px] uppercase mb-1.5">{step.title.replace('a local Jacksonville', `a local ${config.city}`)}</h3>
+          <p class="text-sm text-gray-500 max-w-[200px] mx-auto">{step.description.replace('Jacksonville', config.city)}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  /* Step connectors (desktop only) */
+  @media (min-width: 769px) {
+    .steps-row > div:not(:last-child)::after {
+      content: '→';
+      position: absolute;
+      right: -20px;
+      top: 22px;
+      font-size: 18px;
+      color: var(--color-gray-300);
+      font-weight: 700;
+      z-index: 1;
+    }
+  }
+</style>

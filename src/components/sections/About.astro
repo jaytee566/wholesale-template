@@ -1,0 +1,36 @@
+---
+import { getMarketConfig } from '@/utils/market-config';
+import { defaults } from '@/config/defaults';
+
+const config = getMarketConfig();
+const about = defaults.about;
+---
+
+<section class="py-20" id="about">
+  <div class="wrap">
+    <span class="font-(family-name:--font-headline) font-bold text-[13px] uppercase tracking-[0.12em] text-green mb-3 inline-block">{about.tag}</span>
+    <h2 class="font-(family-name:--font-headline) font-extrabold uppercase leading-[1.08] text-dark mb-4" style="font-size: clamp(26px, 3.5vw, 38px);">
+      {about.title}
+    </h2>
+
+    <div class="grid grid-cols-[180px_1fr] gap-7 items-start mt-7 reveal max-sm:grid-cols-1">
+      <!-- Photo placeholder -->
+      <div class="w-[180px] h-[220px] rounded-[10px] bg-gray-100 border-2 border-dashed border-gray-200 flex items-center justify-center text-gray-400 text-xs text-center p-3 max-sm:mx-auto">
+        Photo placeholder<br />(required before launch)
+      </div>
+
+      <div>
+        <p class="text-[15px] text-gray-600 leading-relaxed mb-2.5">
+          <strong class="text-gray-800">{config.company.name}</strong> is run by a real person you'll actually talk to, not a script-reading call center rep from another state.
+        </p>
+        <p class="text-[15px] text-gray-600 leading-relaxed mb-2.5">
+          We buy {config.city} homes directly. No middlemen, no wholesaling chains, no bait-and-switch. Every offer is based on real comparable sales data pulled from public records, and every closing happens at a reputable local title company where your funds are protected.
+        </p>
+        <p class="text-[15px] text-gray-600 leading-relaxed mb-2.5">
+          Our office is at <strong class="text-gray-800">{config.company.address.full}</strong>. You can visit any time. We close at a local title company — not in a parking lot.
+        </p>
+        <p class="text-green font-semibold text-[15px]">{about.trust_line}</p>
+      </div>
+    </div>
+  </div>
+</section>

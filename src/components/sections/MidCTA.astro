@@ -1,0 +1,20 @@
+---
+import { defaults } from '@/config/defaults';
+
+const cta = defaults.mid_cta;
+---
+
+<div class="text-center py-12 bg-green-light border-y border-emerald-200">
+  <div class="wrap">
+    <h2 class="font-(family-name:--font-headline) font-extrabold uppercase text-dark mb-4" style="font-size: clamp(24px, 3vw, 34px);">
+      {cta.headline}
+    </h2>
+    <a
+      href="#lead-form"
+      class="inline-block font-(family-name:--font-headline) font-bold text-[17px] uppercase tracking-wide py-[15px] px-9 rounded-lg bg-gradient-to-br from-amber to-amber-light text-white shadow-[0_4px_16px_var(--color-amber-glow)] transition-all duration-200 hover:translate-y-[-1px] hover:shadow-[0_6px_24px_var(--color-amber-glow)]"
+    >
+      {cta.button_text}
+    </a>
+    <span class="block text-xs text-gray-400 mt-2">{cta.sub_text}</span>
+  </div>
+</div>

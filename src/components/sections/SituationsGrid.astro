@@ -1,0 +1,28 @@
+---
+import { getMarketConfig } from '@/utils/market-config';
+import { defaults } from '@/config/defaults';
+
+const config = getMarketConfig();
+const s = defaults.situations;
+---
+
+<section class="py-20">
+  <div class="wrap">
+    <span class="font-(family-name:--font-headline) font-bold text-[13px] uppercase tracking-[0.12em] text-green mb-3 inline-block">{s.tag}</span>
+    <h2 class="font-(family-name:--font-headline) font-extrabold uppercase leading-[1.08] text-dark mb-4" style="font-size: clamp(26px, 3.5vw, 38px);">
+      {s.title}
+    </h2>
+
+    <div class="grid grid-cols-[repeat(auto-fill,minmax(230px,1fr))] gap-3.5 mt-7 reveal">
+      {config.situations.map((sit) => (
+        <a
+          href={`/situations/${sit.slug}`}
+          class="block p-[18px] border border-gray-100 rounded-[10px] bg-white shadow-[0_1px_3px_rgba(0,0,0,0.08)] transition-all duration-200 hover:border-green hover:shadow-[0_12px_32px_rgba(0,0,0,0.12)] hover:translate-y-[-2px]"
+        >
+          <h3 class="font-(family-name:--font-headline) font-bold text-[15px] uppercase text-green mb-1">{sit.title}</h3>
+          <p class="text-xs text-gray-500 leading-relaxed">{sit.short_desc}</p>
+        </a>
+      ))}
+    </div>
+  </div>
+</section>

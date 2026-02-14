@@ -1,0 +1,58 @@
+---
+import { getMarketConfig } from '@/utils/market-config';
+import { defaults } from '@/config/defaults';
+
+const config = getMarketConfig();
+const year = new Date().getFullYear();
+---
+
+<footer class="bg-black border-t border-white/[0.04] text-gray-500 pt-9 pb-6 text-[13px]">
+  <div class="wrap">
+    <div class="flex flex-wrap justify-between gap-7 mb-6">
+      <!-- Company -->
+      <div class="min-w-[150px]">
+        <p class="text-[15px] font-bold text-white mb-1.5">{config.company.name}</p>
+        <p>Local {config.city} home buyers.<br />{defaults.footer.tagline}</p>
+        <p class="mt-1.5">{config.company.address.full}</p>
+      </div>
+
+      <!-- Links -->
+      <div class="min-w-[150px]">
+        <h4 class="text-[11px] font-bold text-gray-400 uppercase tracking-[1.2px] mb-2.5">Company</h4>
+        <a href="#how-it-works" class="block mb-1 text-gray-500 hover:text-green-light transition-colors">How It Works</a>
+        <a href="#about" class="block mb-1 text-gray-500 hover:text-green-light transition-colors">About Us</a>
+        <a href="#testimonials" class="block mb-1 text-gray-500 hover:text-green-light transition-colors">Testimonials</a>
+        <a href="#faq" class="block mb-1 text-gray-500 hover:text-green-light transition-colors">FAQ</a>
+      </div>
+
+      <!-- Situations -->
+      <div class="min-w-[150px]">
+        <h4 class="text-[11px] font-bold text-gray-400 uppercase tracking-[1.2px] mb-2.5">Situations</h4>
+        {config.situations.slice(0, 4).map((sit) => (
+          <a href={`/situations/${sit.slug}`} class="block mb-1 text-gray-500 hover:text-green-light transition-colors">
+            {sit.title}
+          </a>
+        ))}
+      </div>
+
+      <!-- Contact -->
+      <div class="min-w-[150px]">
+        <h4 class="text-[11px] font-bold text-gray-400 uppercase tracking-[1.2px] mb-2.5">Contact</h4>
+        <a href={`tel:${config.company.phone_raw}`} class="block mb-1 text-green-light font-semibold">
+          {config.company.phone}
+        </a>
+        <p>{config.company.address.full}</p>
+        <p class="text-[11px] mt-0.5">Closings at a local title company</p>
+      </div>
+    </div>
+
+    <div class="pt-4 border-t border-white/[0.04] flex justify-between flex-wrap gap-2 text-[11px] text-gray-600">
+      <span>&copy; {year} {config.company.name}. All rights reserved.</span>
+      <div>
+        <a href="/privacy-policy" class="text-gray-600 underline">Privacy Policy</a>
+        {' · '}
+        <a href="/terms" class="text-gray-600 underline">Terms of Service</a>
+      </div>
+    </div>
+  </div>
+</footer>

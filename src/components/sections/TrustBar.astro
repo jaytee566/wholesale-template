@@ -1,0 +1,26 @@
+---
+import { getMarketConfig } from '@/utils/market-config';
+
+const config = getMarketConfig();
+const md = config.market_data;
+
+const items = [
+  { num: md.homes_purchased, label: 'Homes Purchased' },
+  { num: `${md.google_rating} ★`, label: 'Google Rating' },
+  { num: String(md.avg_close_days), label: 'Avg. Days to Close' },
+  { num: '$0', label: 'Fees to You' },
+];
+---
+
+<div class="bg-gray-50 border-b border-gray-100 py-5">
+  <div class="wrap">
+    <div class="flex justify-center items-center gap-12 flex-wrap max-sm:gap-6">
+      {items.map((item) => (
+        <div class="flex items-center gap-2.5 text-sm text-gray-500 font-medium">
+          <span class="font-(family-name:--font-headline) font-extrabold text-[22px] text-black max-sm:text-lg">{item.num}</span>
+          {item.label}
+        </div>
+      ))}
+    </div>
+  </div>
+</div>

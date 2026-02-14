@@ -1,0 +1,32 @@
+---
+import { getMarketConfig } from '@/utils/market-config';
+import { defaults } from '@/config/defaults';
+
+const config = getMarketConfig();
+const t = defaults.testimonials;
+---
+
+<section class="py-20 bg-gray-50" id="testimonials">
+  <div class="wrap">
+    <span class="font-(family-name:--font-headline) font-bold text-[13px] uppercase tracking-[0.12em] text-green mb-3 inline-block">{t.tag}</span>
+    <h2 class="font-(family-name:--font-headline) font-extrabold uppercase leading-[1.08] text-dark mb-4" style="font-size: clamp(26px, 3.5vw, 38px);">
+      {t.title_template.replace('{city}', config.city)}
+    </h2>
+
+    <div class="grid grid-cols-3 gap-[18px] mt-8 max-md:grid-cols-1">
+      {config.testimonials.map((test, i) => (
+        <div class:list={['reveal bg-white border border-gray-100 rounded-[10px] p-[22px] shadow-[0_1px_3px_rgba(0,0,0,0.08)]', i === 1 && 'reveal-d1', i === 2 && 'reveal-d2']}>
+          <div class="text-[13px] text-amber-light mb-2 tracking-[1px]">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+          <div class="text-xs text-gray-400 font-medium mb-2">{test.problem}</div>
+          <blockquote class="text-sm italic text-gray-800 leading-relaxed mb-3.5">"{test.outcome}"</blockquote>
+          <div class="text-xs text-gray-400">
+            <strong class="text-gray-600">{test.name}</strong> · {test.location}
+          </div>
+          <span class="inline-block mt-2 py-[3px] px-2.5 bg-green-bg text-green rounded-xl text-[11px] font-semibold">
+            Closed in {test.timeframe}
+          </span>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

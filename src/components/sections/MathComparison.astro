@@ -1,0 +1,104 @@
+---
+import { getMarketConfig } from '@/utils/market-config';
+import { defaults } from '@/config/defaults';
+
+const config = getMarketConfig();
+const md = config.market_data;
+const mc = defaults.math_comparison;
+
+const price = mc.example_price;
+const commission = Math.round(price * md.avg_commission_pct / 100);
+const closingCosts = Math.round(price * md.avg_closing_cost_pct / 100);
+const repairs = mc.repair_cost;
+const carrying = mc.carrying_cost;
+const agentNet = price - commission - closingCosts - repairs - carrying;
+const cashOffer = mc.our_offer;
+const difference = cashOffer - agentNet;
+
+function fmt(n: number): string {
+  return '$' + n.toLocaleString('en-US');
+}
+---
+
+<section class="py-16 bg-gray-50">
+  <div class="wrap">
+    <p class="font-(family-name:--font-headline) font-bold text-[12px] uppercase tracking-[0.12em] text-green mb-2 text-center">{mc.tag}</p>
+    <h2 class="font-(family-name:--font-headline) font-extrabold uppercase leading-[1.08] text-dark mb-3.5 text-center" style="font-size: clamp(26px, 3.5vw, 38px);">
+      {mc.title}
+    </h2>
+    <p class="text-center max-w-[580px] mx-auto text-[15px] text-gray-500 leading-relaxed mb-9">
+      Most sellers only compare the sale price. But that's not what hits your bank account. Here's the full picture on a {fmt(price)} {config.city} home.
+    </p>
+
+    <div class="grid grid-cols-[1fr_60px_1fr] gap-0 max-w-[780px] mx-auto items-stretch reveal max-sm:grid-cols-1 max-sm:gap-3">
+      <!-- Agent column -->
+      <div class="p-7 rounded-[10px] bg-white border border-gray-200">
+        <h3 class="font-(family-name:--font-headline) font-bold text-[17px] uppercase text-gray-600 mb-4 pb-3 border-b border-black/[0.06]">Sell With an Agent</h3>
+        <div class="flex justify-between items-center py-1.5 text-[13px]">
+          <span class="text-gray-500">Sale price</span>
+          <span class="font-semibold">{fmt(price)}</span>
+        </div>
+        <div class="flex justify-between items-center py-1.5 text-[13px]">
+          <span class="text-gray-500">Agent commission ({md.avg_commission_pct}%)</span>
+          <span class="font-semibold text-red">−{fmt(commission)}</span>
+        </div>
+        <div class="flex justify-between items-center py-1.5 text-[13px]">
+          <span class="text-gray-500">Closing costs ({md.avg_closing_cost_pct}%)</span>
+          <span class="font-semibold text-red">−{fmt(closingCosts)}</span>
+        </div>
+        <div class="flex justify-between items-center py-1.5 text-[13px]">
+          <span class="text-gray-500">Repairs to list</span>
+          <span class="font-semibold text-red">−{fmt(repairs)}</span>
+        </div>
+        <div class="flex justify-between items-center py-1.5 text-[13px]">
+          <span class="text-gray-500">Carrying costs ({md.avg_days_on_market} days)</span>
+          <span class="font-semibold text-red">−{fmt(carrying)}</span>
+        </div>
+        <div class="mt-3 pt-3 border-t-2 border-black/[0.08] flex justify-between items-baseline">
+          <span class="text-[13px] font-semibold text-gray-800">You keep:</span>
+          <span class="font-(family-name:--font-headline) text-[28px] font-extrabold text-gray-600">{fmt(agentNet)}</span>
+        </div>
+        <p class="text-[11px] text-gray-400 mt-2 text-center">After 3–4 months</p>
+      </div>
+
+      <!-- VS -->
+      <div class="flex items-center justify-center font-(family-name:--font-headline) font-extrabold text-xl text-gray-300 max-sm:py-1">VS</div>
+
+      <!-- Cash column -->
+      <div class="p-7 rounded-[10px] bg-green-bg border-2 border-green relative">
+        <span class="absolute top-[-12px] left-1/2 -translate-x-1/2 font-(family-name:--font-headline) text-[11px] font-bold uppercase tracking-[0.1em] py-[3px] px-3 rounded-[10px] bg-green text-white">BETTER DEAL</span>
+        <h3 class="font-(family-name:--font-headline) font-bold text-[17px] uppercase text-green mb-4 pb-3 border-b border-black/[0.06]">Cash Sale to Us</h3>
+        <div class="flex justify-between items-center py-1.5 text-[13px]">
+          <span class="text-gray-500">Our offer</span>
+          <span class="font-semibold">{fmt(cashOffer)}</span>
+        </div>
+        <div class="flex justify-between items-center py-1.5 text-[13px]">
+          <span class="text-gray-500">Agent commission</span>
+          <span class="font-semibold text-green">$0</span>
+        </div>
+        <div class="flex justify-between items-center py-1.5 text-[13px]">
+          <span class="text-gray-500">Closing costs</span>
+          <span class="font-semibold text-green">$0</span>
+        </div>
+        <div class="flex justify-between items-center py-1.5 text-[13px]">
+          <span class="text-gray-500">Repairs needed</span>
+          <span class="font-semibold text-green">$0</span>
+        </div>
+        <div class="flex justify-between items-center py-1.5 text-[13px]">
+          <span class="text-gray-500">Carrying costs</span>
+          <span class="font-semibold text-green">$0</span>
+        </div>
+        <div class="mt-3 pt-3 border-t-2 border-black/[0.08] flex justify-between items-baseline">
+          <span class="text-[13px] font-semibold text-gray-800">You keep:</span>
+          <span class="font-(family-name:--font-headline) text-[28px] font-extrabold text-green">{fmt(cashOffer)}</span>
+        </div>
+        <p class="text-[11px] text-gray-400 mt-2 text-center">In as fast as 7–14 days</p>
+      </div>
+    </div>
+
+    <p class="reveal text-center mt-6 text-[13px] text-gray-400 leading-relaxed">
+      That's <strong class="text-green">{fmt(difference)} more</strong> in your pocket — and months of your life back.<br />
+      <span class="text-[11px] text-gray-400">Example uses {config.city} averages. Your actual offer is based on your property's comps and condition.</span>
+    </p>
+  </div>
+</section>
