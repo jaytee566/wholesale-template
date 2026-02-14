@@ -4,6 +4,10 @@ import { defaults } from '@/config/defaults';
 
 const config = getMarketConfig();
 const t = defaults.testimonials;
+
+function getInitial(name: string): string {
+  return name.charAt(0).toUpperCase();
+}
 ---
 
 <section class="py-20 bg-gray-50" id="testimonials">
@@ -13,16 +17,53 @@ const t = defaults.testimonials;
       {t.title_template.replace('{city}', config.city)}
     </h2>
 
-    <div class="grid grid-cols-3 gap-[18px] mt-8 max-md:grid-cols-1">
+    <div class="grid grid-cols-3 gap-5 mt-8 max-md:grid-cols-1">
       {config.testimonials.map((test, i) => (
-        <div class:list={['reveal bg-white border border-gray-100 rounded-[10px] p-[22px] shadow-[0_1px_3px_rgba(0,0,0,0.08)]', i === 1 && 'reveal-d1', i === 2 && 'reveal-d2']}>
-          <div class="text-[13px] text-amber-light mb-2 tracking-[1px]">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-          <div class="text-xs text-gray-400 font-medium mb-2">{test.problem}</div>
-          <blockquote class="text-sm italic text-gray-800 leading-relaxed mb-3.5">"{test.outcome}"</blockquote>
-          <div class="text-xs text-gray-400">
-            <strong class="text-gray-600">{test.name}</strong> · {test.location}
+        <div class:list={['reveal bg-white rounded-xl p-6 shadow-[0_1px_4px_rgba(0,0,0,0.08),0_4px_12px_rgba(0,0,0,0.04)] border border-gray-100/80', i === 1 && 'reveal-d1', i === 2 && 'reveal-d2']}>
+
+          {/* Google branding row */}
+          <div class="flex items-center justify-between mb-4">
+            <div class="flex items-center gap-2">
+              {/* Google colorful G logo — inline SVG */}
+              <svg width="18" height="18" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+                <path d="M44.5 20H24v8.5h11.8C34.7 33.9 30.1 37 24 37c-7.2 0-13-5.8-13-13s5.8-13 13-13c3.1 0 5.9 1.1 8.1 2.9l6.4-6.4C34.6 4.1 29.6 2 24 2 11.8 2 2 11.8 2 24s9.8 22 22 22c11 0 21-8 21-22 0-1.3-.2-2.7-.5-4z" fill="#4285F4" />
+                <path d="M3.2 14.1l7 5.1C12.1 15 17.5 11 24 11c3.1 0 5.9 1.1 8.1 2.9l6.4-6.4C34.6 4.1 29.6 2 24 2 14.8 2 6.9 7 3.2 14.1z" fill="#EA4335" />
+                <path d="M24 46c5.5 0 10.4-1.9 14.3-5.1l-6.6-5.6C29.5 37 27 38 24 38c-6 0-11.1-4-12.9-9.5l-7 5.4C7.6 41 15.2 46 24 46z" fill="#34A853" />
+                <path d="M44.5 20H24v8.5h11.8c-.9 3-2.8 5.4-5.5 7.1l6.6 5.6C40.7 37.5 46 31.5 46 24c0-1.3-.2-2.7-.5-4z" fill="#FBBC04" />
+              </svg>
+              <span class="text-[11px] text-gray-400 font-medium">Posted on Google</span>
+            </div>
           </div>
-          <span class="inline-block mt-2 py-[3px] px-2.5 bg-green-bg text-green rounded-xl text-[11px] font-semibold">
+
+          {/* Stars — Google gold #FBBC04 */}
+          <div class="flex items-center gap-[2px] mb-3">
+            {[1,2,3,4,5].map(() => (
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="#FBBC04" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+              </svg>
+            ))}
+          </div>
+
+          {/* Situation context */}
+          <div class="text-[11px] text-gray-400 font-medium mb-2 uppercase tracking-wide">{test.problem}</div>
+
+          {/* Review text */}
+          <blockquote class="text-[14px] text-gray-800 leading-relaxed mb-4">"{test.outcome}"</blockquote>
+
+          {/* Author row */}
+          <div class="flex items-center gap-3">
+            {/* Initial avatar circle */}
+            <div class="w-9 h-9 rounded-full bg-gray-600 text-white flex items-center justify-center text-sm font-bold shrink-0">
+              {getInitial(test.name)}
+            </div>
+            <div>
+              <div class="text-[13px] font-semibold text-gray-800">{test.name}</div>
+              <div class="text-[11px] text-gray-400">{test.location}</div>
+            </div>
+          </div>
+
+          {/* Our badge — not Google's */}
+          <span class="inline-block mt-3 py-[3px] px-2.5 bg-green-bg text-green rounded-xl text-[11px] font-semibold">
             Closed in {test.timeframe}
           </span>
         </div>
