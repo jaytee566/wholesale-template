@@ -31,10 +31,10 @@ const f = defaults.form;
           {d.subtitle}
         </p>
 
-        <ul class="flex flex-wrap gap-x-6 gap-y-4 mb-7 list-none fade-in-d2">
+        <ul class="flex flex-col gap-y-2 mb-7 list-none fade-in-d2">
           {d.proof_points.map((point) => (
-            <li class="flex items-center gap-[7px] text-sm font-medium text-white/75">
-              <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 shrink-0"></span>
+            <li class="flex items-center gap-3 text-base font-medium text-white/90">
+              <span class="w-7 h-7 rounded-full bg-green flex items-center justify-center text-white text-sm shrink-0">&#10003;</span>
               {point}
             </li>
           ))}
@@ -42,10 +42,10 @@ const f = defaults.form;
 
         <!-- Micro-testimonial -->
         {config.testimonials[0] && (
-          <div class="mt-8 p-4 bg-white/[0.04] border border-white/[0.06] rounded-[10px] max-w-[400px] fade-in-d3 max-md:hidden">
+          <div class="mt-8 p-4 bg-gray-900/95 border border-white/10 rounded-[10px] max-w-[400px] fade-in-d3 max-md:hidden">
             <div class="text-[13px] text-amber-light mb-1.5">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-            <p class="text-[13px] text-white/55 leading-relaxed italic">"{config.testimonials[0].outcome}"</p>
-            <cite class="text-xs text-white/35 not-italic mt-1.5 block">
+            <p class="text-[13px] text-white/80 leading-relaxed italic">"{config.testimonials[0].outcome}"</p>
+            <cite class="text-xs text-white/55 not-italic mt-1.5 block">
               — {config.testimonials[0].name}, {config.testimonials[0].location} · Closed in {config.testimonials[0].timeframe}
             </cite>
           </div>

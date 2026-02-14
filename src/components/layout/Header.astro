@@ -4,15 +4,8 @@ import { getMarketConfig } from '@/utils/market-config';
 const config = getMarketConfig();
 ---
 
-<!-- Mobile call bar -->
-<div class="hidden max-md:block bg-green text-white text-center py-2.5 px-4 text-sm font-semibold relative z-[1001]">
-  <a href={`tel:${config.company.phone_raw}`} class="text-white underline">
-    Call now for a free offer: {config.company.phone}
-  </a>
-</div>
-
 <!-- Navigation -->
-<nav id="mainNav" class="fixed top-0 left-0 right-0 z-[1000] transition-all duration-300 max-md:top-[42px]">
+<nav id="mainNav" class="fixed top-0 left-0 right-0 z-[1000] transition-all duration-300">
   <div class="wrap">
     <div class="nav-inner flex items-center justify-between py-4 transition-all duration-300">
       <a href="/" class="font-(family-name:--font-headline) font-extrabold text-2xl uppercase tracking-tight text-white transition-colors duration-300 nav-logo">
@@ -21,12 +14,12 @@ const config = getMarketConfig();
       <div class="flex items-center gap-5">
         <a
           href={`tel:${config.company.phone_raw}`}
-          class="hidden sm:flex items-center gap-1.5 font-(family-name:--font-headline) font-bold text-base text-white transition-colors duration-300 nav-phone-link"
+          class="flex items-center gap-1.5 font-(family-name:--font-headline) font-bold text-sm sm:text-base text-white transition-colors duration-300 nav-phone-link"
         >
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-4 h-4">
             <path d="M6.62 10.79a15.05 15.05 0 006.59 6.59l2.2-2.2a1 1 0 011.01-.24c1.12.37 2.33.57 3.58.57a1 1 0 011 1V20a1 1 0 01-1 1A17 17 0 013 4a1 1 0 011-1h3.5a1 1 0 011 1c0 1.25.2 2.46.57 3.58a1 1 0 01-.24 1.01l-2.2 2.2z" />
           </svg>
-          {config.company.phone}
+          <span class="hidden sm:inline">{config.company.phone}</span>
         </a>
         <a
           href="#lead-form"
