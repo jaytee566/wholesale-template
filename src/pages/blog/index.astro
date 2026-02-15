@@ -1,0 +1,91 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Header from '@/components/layout/Header.astro';
+import Footer from '@/components/layout/Footer.astro';
+import Breadcrumb from '@/components/ui/Breadcrumb.astro';
+import FinalCTA from '@/components/sections/FinalCTA.astro';
+import { getMarketConfig } from '@/utils/market-config';
+import { defaults } from '@/config/defaults';
+import { buildBreadcrumbSchema, replaceTokens } from '@/utils/seo';
+
+const config = getMarketConfig();
+const r = (t: string) => replaceTokens(t, config);
+const posts = defaults.blog_posts;
+
+const title = r('Sell Your House Fast — Tips & Guides | {company}');
+const description = r('Helpful guides for {city} homeowners considering selling their home for cash. Learn about foreclosure, inherited properties, agent costs, and more.');
+
+const breadcrumbSchema = buildBreadcrumbSchema(config.domain, [
+  { name: 'Home', url: '/' },
+  { name: 'Blog', url: '/blog' },
+]);
+
+function formatDate(dateStr: string): string {
+  const d = new Date(dateStr + 'T00:00:00');
+  return d.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+}
+---
+
+<BaseLayout title={title} description={description} canonicalPath="/blog" jsonLd={[breadcrumbSchema]}>
+  <Header solid />
+  <Breadcrumb items={[{ label: 'Home', href: '/' }]} current="Blog" />
+
+  <main>
+    <!-- Page header -->
+    <section class="pb-8">
+      <div class="wrap">
+        <span class="font-(family-name:--font-headline) font-bold text-[13px] uppercase tracking-[0.12em] text-green mb-3 inline-block">Resources</span>
+        <h1 class="font-(family-name:--font-headline) font-extrabold uppercase leading-[1.08] text-dark mb-4" style="font-size: clamp(28px, 4.5vw, 48px);">
+          Guides for {config.city} Homeowners
+        </h1>
+        <p class="text-[17px] text-gray-500 leading-relaxed max-w-[640px]">
+          Straight answers about selling your home — no fluff, no sales pitch. Just the information you need to make the best decision.
+        </p>
+      </div>
+    </section>
+
+    <!-- Blog card grid -->
+    <section class="py-12">
+      <div class="wrap">
+        <div class="grid grid-cols-[repeat(auto-fill,minmax(320px,1fr))] gap-6 max-sm:grid-cols-1">
+          {posts.map((post, i) => (
+            <article class:list={['reveal bg-white border border-gray-100 rounded-xl overflow-hidden shadow-[0_1px_4px_rgba(0,0,0,0.06),0_4px_12px_rgba(0,0,0,0.03)] transition-all duration-300 hover:shadow-[0_12px_32px_rgba(0,0,0,0.1)] hover:translate-y-[-3px]', i === 1 && 'reveal-d1', i === 2 && 'reveal-d2']}>
+              <div class="p-7">
+                <div class="flex items-center gap-3 mb-4">
+                  <time class="text-[12px] text-gray-400 font-medium" datetime={post.date}>{formatDate(post.date)}</time>
+                  {post.tags[0] && (
+                    <span class="text-[11px] font-semibold text-green bg-green-bg py-0.5 px-2.5 rounded-full uppercase tracking-wide">{post.tags[0].replace('-', ' ')}</span>
+                  )}
+                </div>
+                <h2 class="font-(family-name:--font-headline) font-bold text-[20px] uppercase leading-tight text-dark mb-3 line-clamp-2">
+                  <a href={`/blog/${post.slug}`} class="hover:text-green transition-colors">{post.title}</a>
+                </h2>
+                <p class="text-[14px] text-gray-500 leading-relaxed mb-5 line-clamp-3">{post.excerpt}</p>
+                <a
+                  href={`/blog/${post.slug}`}
+                  class="inline-flex items-center gap-1.5 text-[13px] font-bold text-green hover:text-green-dark transition-colors uppercase tracking-wide"
+                >
+                  Read More <span aria-hidden="true">&rarr;</span>
+                </a>
+              </div>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- Internal links -->
+    <section class="py-10">
+      <div class="wrap text-center text-[15px] text-gray-500 space-x-4">
+        <a href="/how-it-works" class="text-green font-semibold underline hover:text-green-dark transition-colors">How It Works</a>
+        <span class="text-gray-300">|</span>
+        <a href="/about" class="text-green font-semibold underline hover:text-green-dark transition-colors">About Us</a>
+        <span class="text-gray-300">|</span>
+        <a href="/#lead-form" class="text-green font-semibold underline hover:text-green-dark transition-colors">Get Your Cash Offer</a>
+      </div>
+    </section>
+  </main>
+
+  <FinalCTA />
+  <Footer />
+</BaseLayout>

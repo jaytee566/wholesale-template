@@ -21,6 +21,7 @@ const year = new Date().getFullYear();
         <h4 class="text-[11px] font-bold text-gray-400 uppercase tracking-[1.2px] mb-2.5">Company</h4>
         <a href="/how-it-works" class="block mb-1 text-gray-500 hover:text-green-light transition-colors">How It Works</a>
         <a href="/about" class="block mb-1 text-gray-500 hover:text-green-light transition-colors">About Us</a>
+        <a href="/blog" class="block mb-1 text-gray-500 hover:text-green-light transition-colors">Blog</a>
         <a href="/#testimonials" class="block mb-1 text-gray-500 hover:text-green-light transition-colors">Testimonials</a>
         <a href="/#faq" class="block mb-1 text-gray-500 hover:text-green-light transition-colors">FAQ</a>
       </div>
@@ -31,6 +32,12 @@ const year = new Date().getFullYear();
         {config.situations.slice(0, 4).map((sit) => (
           <a href={`/situations/${sit.slug}`} class="block mb-1 text-gray-500 hover:text-green-light transition-colors">
             {sit.title}
+          </a>
+        ))}
+        <h4 class="text-[11px] font-bold text-gray-400 uppercase tracking-[1.2px] mt-3 mb-2.5">Areas</h4>
+        {config.neighborhoods.slice(0, 3).map((n) => (
+          <a href={`/areas/${n.slug}`} class="block mb-1 text-gray-500 hover:text-green-light transition-colors">
+            {n.name}
           </a>
         ))}
       </div>

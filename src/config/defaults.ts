@@ -409,6 +409,214 @@ export const defaults = {
     ],
   },
 
+  /* ── Area (neighborhood) pages ──────────────────────────── */
+
+  area_pages: {
+    riverside: {
+      title_tag_template: 'Sell Your House Fast in Riverside, {city} | Cash Offer | {company}',
+      meta_description_template:
+        'Need to sell your house fast in Riverside, {city}? {company} buys homes for cash in any condition. No agents, no fees, close in as few as 7 days.',
+      h1_template: 'Sell Your Riverside Home Fast for Cash',
+      content: `
+        <h2>Cash Home Buyers in Riverside, {city}</h2>
+        <p>{company} buys homes directly from homeowners in the Riverside neighborhood of {city}. Whether your property is on a tree-lined street near Five Points or tucked behind Boone Park, we make cash offers on houses in any condition — no agents, no fees, no repairs required.</p>
+        <p>Riverside's older housing stock means many homes need significant updates before they can be listed on the traditional market. That is where we come in. We buy as-is, which means you skip the contractor bids, the permit delays, and the $20,000+ in renovation costs that agents expect before putting a sign in the yard.</p>
+
+        <h2>When Selling for Cash in Riverside Makes Sense</h2>
+        <p>Riverside homeowners reach out to us when their situation demands speed or simplicity. Common reasons include inherited properties from family members who lived in the area for decades, homes with deferred maintenance that would cost more to fix than the equity gained, and divorce situations where both parties need a clean split without a six-month listing process.</p>
+        <p>If your Riverside property has been sitting vacant, racking up insurance and utility costs while you wait for the right time to list — the right time may be now. A cash sale stops the carrying costs immediately and puts money in your account within two to three weeks.</p>
+
+        <h2>What to Expect from {company}</h2>
+        <p>Tell us about your Riverside property and we will pull comparable sales data from the 32204 zip code to build your offer. You will receive a no-obligation cash offer, typically within 24 hours. If you accept, we close at a local {city} title company on whatever date works for your schedule.</p>
+      `,
+      faq: [
+        { question: 'How fast can you close on a house in Riverside?', answer: 'Most Riverside transactions close in 7 to 21 days. The timeline depends on title clearance and your preferred schedule. We work around your needs, not the other way around.' },
+        { question: 'Do you buy older homes in Riverside that need major work?', answer: 'Yes. Many Riverside homes were built in the early 1900s and need significant structural or cosmetic updates. We buy them as-is — foundation issues, outdated electrical, roof problems, all of it.' },
+        { question: 'Will I get a fair price for my Riverside home?', answer: 'Our offers are based on recent comparable sales in the Riverside area and the condition of your specific property. We factor in the 6% agent commission, closing costs, and repair bills you avoid — so the net number is often closer than sellers expect.' },
+      ],
+    },
+    westside: {
+      title_tag_template: 'Sell Your House Fast on the Westside, {city} | {company}',
+      meta_description_template:
+        'Selling a house on the Westside of {city}? {company} pays cash for homes in any condition. No repairs, no agents, no fees. Get your offer today.',
+      h1_template: 'Sell Your Westside Home Fast for Cash',
+      content: `
+        <h2>Cash Home Buyers on the Westside of {city}</h2>
+        <p>{company} is actively buying homes on the Westside of {city}. The 32210 zip code has one of the highest foreclosure rates in the metro area, and we work with homeowners every week who need a fast, private way to sell before the bank takes action.</p>
+        <p>We also buy rental properties from tired landlords, inherited homes from out-of-state heirs, and houses that need more work than they are worth on the traditional market. If you own a property on the Westside and want a straightforward cash sale, we can help.</p>
+
+        <h2>Why Westside Homeowners Choose Cash</h2>
+        <p>Traditional listings on the Westside average {avg_days_on_market} days on the market — and that does not count the weeks of repairs and staging most agents require before listing. For homeowners facing foreclosure, behind on payments, or dealing with problem tenants, that timeline is not fast enough.</p>
+        <p>A cash sale eliminates the wait. No open houses, no buyer financing contingencies, no inspection surprises. You get a firm number, pick your closing date, and move on with your life.</p>
+
+        <h2>What to Expect from {company}</h2>
+        <p>Submit your Westside property address and we will pull local comps to build your offer. No obligation, no pressure. If the number works, we close at a local {city} title company and you walk away with cash — typically in under three weeks.</p>
+      `,
+      faq: [
+        { question: 'Do you buy houses in foreclosure on the Westside?', answer: 'Yes. We specialize in helping Westside homeowners sell before the bank forecloses. If you have received a notice of default, call us immediately — we can often close before the auction date.' },
+        { question: 'Can I sell my Westside rental property with tenants still living there?', answer: 'Absolutely. We buy rental properties with tenants in place. You do not need to evict anyone or deal with showings while the property is occupied.' },
+        { question: 'How do you determine your offer on a Westside home?', answer: 'We pull recent sales data from the 32210 zip code, assess the condition of the property, and factor in current market trends. Our offers are based on real numbers, not guesswork.' },
+      ],
+    },
+    southside: {
+      title_tag_template: 'Sell Your House Fast on the Southside, {city} | {company}',
+      meta_description_template:
+        'Need to sell your Southside {city} home quickly? {company} makes cash offers on houses in any condition. Close in as few as 7 days.',
+      h1_template: 'Sell Your Southside Home Fast for Cash',
+      content: `
+        <h2>Cash Home Buyers on the Southside of {city}</h2>
+        <p>{company} buys homes directly from homeowners on the Southside of {city}. Whether your property is near St. Johns Town Center, off Beach Boulevard, or in one of the established subdivisions along Baymeadows, we make cash offers on houses in any condition.</p>
+        <p>The Southside market moves quickly for updated homes, but properties that need work or come with complicated situations — tired landlords, relocating owners, inherited estates — often sit for months. Selling for cash lets you skip the listing process entirely.</p>
+
+        <h2>Common Situations on the Southside</h2>
+        <p>Southside sellers contact us most often because they are relocating for work and cannot wait for a traditional sale. The area attracts professionals who transfer frequently, and carrying two mortgages while waiting for a buyer is financially painful.</p>
+        <p>We also work with Southside landlords who are done managing rental properties, homeowners going through divorce who need to split the asset quickly, and families who inherited a property they do not have the time or money to maintain.</p>
+
+        <h2>What to Expect from {company}</h2>
+        <p>Share your Southside property details and we will have a cash offer ready within 24 hours. Closing happens at a local {city} title company on whatever date you choose — as fast as 7 days or up to 60 days if you need more time.</p>
+      `,
+      faq: [
+        { question: 'Do you buy homes in the Southside subdivisions like Baymeadows or Deerwood?', answer: 'Yes. We buy homes throughout the entire Southside, including Baymeadows, Deerwood, Mandarin adjacent areas, and Beach Boulevard corridor. Property type and price range do not matter — we evaluate every property individually.' },
+        { question: 'I am relocating from the Southside. Can you close quickly?', answer: 'Absolutely. Relocation sales are one of our specialties. We can close in as few as 7 days and handle everything remotely if you have already moved. No trips back to Jacksonville required.' },
+        { question: 'What if my Southside home needs repairs before selling?', answer: 'You do not need to make any repairs. We buy Southside homes as-is — outdated kitchens, bad roofs, foundation issues, cosmetic damage, all of it. Leave what you do not want and we handle the rest.' },
+      ],
+    },
+    arlington: {
+      title_tag_template: 'Sell Your House Fast in Arlington, {city} | {company}',
+      meta_description_template:
+        'Want to sell your Arlington {city} home fast? {company} buys houses for cash in any condition. No repairs, no agents, close on your schedule.',
+      h1_template: 'Sell Your Arlington Home Fast for Cash',
+      content: `
+        <h2>Cash Home Buyers in Arlington, {city}</h2>
+        <p>{company} buys homes directly from homeowners in the Arlington area of {city}. The 32211 zip code has a large number of aging properties — many built in the 1960s and 1970s — that need more work than their owners can afford or want to deal with.</p>
+        <p>We buy these homes as-is for cash. No contractors, no permits, no months of renovation before you can sell. Just a fair offer based on real comparable sales data and a closing at a local title company.</p>
+
+        <h2>Why Arlington Homeowners Sell for Cash</h2>
+        <p>Many Arlington properties have been in the same family for decades. When the original owner passes away or moves to assisted living, the heirs are left with a house that needs $30,000 or more in updates just to list with an agent. That math rarely makes sense.</p>
+        <p>Arlington also has homeowners dealing with deferred maintenance, code violations from the city, and rental properties that have become more trouble than they are worth. A cash sale solves all of these problems in a matter of weeks, not months.</p>
+
+        <h2>What to Expect from {company}</h2>
+        <p>Tell us about your Arlington property and we will pull comps from the 32211 area to build a cash offer. No showings, no appraisals, no contingencies. If the number works for you, we close at a {city} title company on the date you choose.</p>
+      `,
+      faq: [
+        { question: 'Do you buy older homes in Arlington that need major repairs?', answer: 'Yes. Arlington has many homes from the 1960s and 1970s that need significant work. We buy them all — roof issues, plumbing problems, outdated electrical, foundation settling, everything.' },
+        { question: 'My Arlington property has code violations. Can you still buy it?', answer: 'We buy properties with open code violations regularly. We handle the violations after closing so you do not have to deal with the city, the fines, or the contractors.' },
+        { question: 'How long does it take to close on an Arlington home?', answer: 'Most Arlington sales close within 14 to 21 days. If you need to move faster, we can often close in as few as 7 days depending on title clearance.' },
+      ],
+    },
+    'san-marco': {
+      title_tag_template: 'Sell Your House Fast in San Marco, {city} | {company}',
+      meta_description_template:
+        'Selling your San Marco home in {city}? {company} makes cash offers on homes in any condition. No agents, no commissions, close in days.',
+      h1_template: 'Sell Your San Marco Home Fast for Cash',
+      content: `
+        <h2>Cash Home Buyers in San Marco, {city}</h2>
+        <p>{company} buys homes directly from homeowners in the San Marco neighborhood of {city}. San Marco properties tend to hold higher values, but that does not mean every homeowner wants to — or can — go through a traditional listing process with agents, staging, and months of showings.</p>
+        <p>Whether your San Marco home is a renovated bungalow or a property that has been in the family for decades and needs significant updates, we make fair cash offers based on real comparable sales in the 32207 zip code.</p>
+
+        <h2>When a Cash Sale Makes Sense in San Marco</h2>
+        <p>San Marco homeowners reach out to us when privacy matters. Divorce situations, financial hardship, and inherited properties are personal — and a traditional listing with a yard sign, open houses, and neighborhood gossip is the last thing you want.</p>
+        <p>We also work with San Marco homeowners who need to close on a specific date to coordinate with another purchase, sellers dealing with estate situations where multiple heirs need a clean transaction, and property owners who simply want the certainty of cash without the months of uncertainty.</p>
+
+        <h2>What to Expect from {company}</h2>
+        <p>Share your San Marco property details and we will provide a no-obligation cash offer within 24 hours. If you accept, closing happens at a {city} title company on your schedule. No commissions, no closing costs, no surprises.</p>
+      `,
+      faq: [
+        { question: 'Are your offers competitive for higher-value San Marco homes?', answer: 'Our offers are based on actual comparable sales in San Marco. For higher-value properties, the savings on agent commissions (6%), closing costs, and repairs are significant — often tens of thousands of dollars that close the gap between our offer and a retail listing price.' },
+        { question: 'Can I sell my San Marco home privately without a yard sign or open houses?', answer: 'Yes. Complete privacy is one of the main reasons San Marco homeowners choose to sell to us. No signs, no MLS listing, no public record of the sale price until closing. We handle everything discreetly.' },
+        { question: 'How quickly can you close in San Marco?', answer: 'Most San Marco transactions close within 14 to 21 days. We can move faster if needed — some closings happen in as few as 7 days when the title is clear.' },
+      ],
+    },
+  } as Record<string, { title_tag_template: string; meta_description_template: string; h1_template: string; content: string; faq: { question: string; answer: string }[] }>,
+
+  /* ── Blog posts (placeholder content) ──────────────────── */
+
+  blog_posts: [
+    {
+      title: 'How to Sell a House in Foreclosure Before the Bank Takes It',
+      slug: 'sell-house-foreclosure-before-bank',
+      date: '2026-01-22',
+      author: 'Joel',
+      excerpt: 'If you have received a notice of default, the clock is ticking. Here is what most homeowners do not know about selling before foreclosure — and how to keep your equity.',
+      tags: ['foreclosure', 'selling-fast'],
+      content: `
+        <h2>The Foreclosure Timeline Most Homeowners Do Not Understand</h2>
+        <p>When your lender files a notice of default, you enter a countdown that most homeowners misunderstand. In {state_full}, the foreclosure process can move faster than you think — and every day you wait, you lose leverage and options.</p>
+        <p>The most important thing to understand is this: <strong>you can sell your home at any point before the foreclosure sale</strong>. The bank does not own your house until the auction is complete. Until that gavel drops, the property is yours to sell.</p>
+
+        <h2>Why Speed Matters More Than Sale Price</h2>
+        <p>Most homeowners in foreclosure make the mistake of trying to list with an agent for top dollar. The problem is timing. A traditional sale in {city} takes an average of {avg_days_on_market} days on the market — plus another 30 to 45 days for closing. That is three to four months you probably do not have.</p>
+        <p>Meanwhile, the late fees keep piling up, your credit score drops further every month, and the bank moves closer to auction. A cash sale can close in as few as 7 to 14 days — fast enough to stop the entire process.</p>
+
+        <h2>What a Cash Sale Looks Like in Pre-Foreclosure</h2>
+        <p>A cash buyer like {company} can make you an offer within 24 hours of your first call. There are no inspections, no appraisals, and no lender approvals to wait for. If you accept, we coordinate with your lender and a local {city} title company to close before your auction date.</p>
+        <p>The title company pays off your mortgage directly from the proceeds. Any remaining equity goes to you. You walk away with cash in hand and no foreclosure on your credit report.</p>
+
+        <h2>What to Do Right Now</h2>
+        <p>If you are facing foreclosure in {city}, do not wait. Every day matters. Reach out for a no-obligation cash offer and find out exactly what your options are. The consultation is free, and there is zero pressure to accept.</p>
+      `,
+    },
+    {
+      title: '5 Hidden Costs of Selling Your Home With a Real Estate Agent',
+      slug: 'hidden-costs-selling-with-agent',
+      date: '2026-02-05',
+      author: 'Joel',
+      excerpt: 'The sale price is not what you walk away with. Agent commissions are just the start — here are five costs most sellers do not see coming until closing day.',
+      tags: ['selling-tips', 'costs'],
+      content: `
+        <h2>The Number on the Contract Is Not the Number in Your Account</h2>
+        <p>When a real estate agent tells you they can sell your {city} home for $250,000, that sounds great — until you see the final settlement statement. By the time you subtract commissions, closing costs, repairs, and carrying costs, the number that actually hits your bank account tells a very different story.</p>
+
+        <h2>Cost 1: Agent Commissions (6%)</h2>
+        <p>The standard real estate commission in {city} is around 6% of the sale price, split between the listing agent and the buyer's agent. On a $250,000 home, that is $15,000 gone before you see a dime. This is typically the single largest expense of selling a home, and it comes straight out of your proceeds at closing.</p>
+
+        <h2>Cost 2: Closing Costs (2–3%)</h2>
+        <p>Sellers in {state_full} typically pay 2% to 3% in closing costs, including title insurance, transfer taxes, attorney fees, and recording fees. On a $250,000 sale, expect $5,000 to $7,500 in closing costs on top of the commission.</p>
+
+        <h2>Cost 3: Pre-Sale Repairs ($5,000–$30,000)</h2>
+        <p>Most agents will not list a home until it is "show ready." That means fixing the roof leak, updating the kitchen, repainting, replacing carpet, and addressing anything a buyer's inspector will flag. For older {city} homes, this easily runs $10,000 to $30,000 — money you spend before a single buyer walks through the door.</p>
+
+        <h2>Cost 4: Carrying Costs During the Listing Period</h2>
+        <p>Every month your home sits on the market, you pay the mortgage, insurance, property taxes, utilities, and maintenance. In {city}, the average home takes {avg_days_on_market} days to sell. That is nearly two months of carrying costs — roughly $3,000 to $5,000 — while you wait for the right buyer.</p>
+
+        <h2>Cost 5: Price Reductions and Buyer Negotiations</h2>
+        <p>Most buyers negotiate. After the home inspection, expect a request for credits or repairs — typically $3,000 to $10,000 on a {city} property. And if your home does not sell in the first 30 days, your agent will likely recommend a price reduction that costs you thousands more.</p>
+
+        <h2>The Cash Sale Alternative</h2>
+        <p>A cash sale to a direct buyer like {company} eliminates all five of these costs. No commissions. No closing costs (we pay them). No repairs. No carrying costs. No negotiations. The offer we make is the number you keep. For many {city} homeowners, the net amount ends up being surprisingly close to — or even better than — what they would pocket through an agent sale.</p>
+      `,
+    },
+    {
+      title: 'Inherited a House You Do Not Want? Here Are Your Options',
+      slug: 'inherited-house-options',
+      date: '2026-02-12',
+      author: 'Joel',
+      excerpt: 'Dealing with an inherited property is stressful on top of grief. Here is a clear breakdown of your options — and which one makes sense for different situations.',
+      tags: ['inherited-property', 'options'],
+      content: `
+        <h2>When You Inherit a Property You Did Not Plan For</h2>
+        <p>Inheriting a home is supposed to be a gift, but for many families it feels more like a burden. The property might be across town or across the state. It might need $40,000 in repairs. There might be other heirs who all have different opinions about what to do. And the whole time, the taxes, insurance, and maintenance costs keep adding up.</p>
+        <p>Here is a clear look at your options so you can make the right decision for your situation.</p>
+
+        <h2>Option 1: Keep and Live In It</h2>
+        <p>If the inherited property is in good condition and located where you want to live, moving in can make sense. You will need to transfer the title, update the homeowner's insurance, and potentially refinance any existing mortgage into your name. This option works best when there is a single heir and the home does not need significant work.</p>
+
+        <h2>Option 2: Keep and Rent It Out</h2>
+        <p>Turning the inherited home into a rental can generate monthly income, but it also means becoming a landlord. You will need to handle tenant screening, maintenance, rent collection, and legal compliance. If the property needs updates before it is rent-ready, factor in renovation costs and the months of vacancy while work is being done.</p>
+
+        <h2>Option 3: List With a Real Estate Agent</h2>
+        <p>Listing on the open market can get you top dollar if the property is in good condition and you have time. But you will pay 6% in commissions, 2% in closing costs, and potentially thousands in repairs and staging. The average listing in {city} takes {avg_days_on_market} days to sell — and the property sits vacant racking up costs the entire time.</p>
+
+        <h2>Option 4: Sell for Cash to a Direct Buyer</h2>
+        <p>A cash sale to a company like {company} is the fastest way to convert an inherited property into money. We buy homes as-is, which means no repairs, no cleaning out the house, and no months of waiting. We also work with {city} probate attorneys to keep the process moving if the estate is still in probate.</p>
+        <p>Most inherited property cash sales close within two to three weeks. The proceeds are distributed through the title company according to whatever arrangement the heirs agree on.</p>
+
+        <h2>Which Option Is Right for You?</h2>
+        <p>The right choice depends on the condition of the property, the number of heirs involved, your financial situation, and how quickly you need to resolve the estate. If speed and simplicity matter most, a cash sale is usually the best path forward. If you are not sure, reach out for a no-obligation conversation — we are happy to walk through the numbers with you.</p>
+      `,
+    },
+  ] as Array<{ title: string; slug: string; date: string; author: string; excerpt: string; tags: string[]; content: string }>,
+
   terms_of_service: {
     title_tag_template: 'Terms of Service | {company}',
     meta_description_template:

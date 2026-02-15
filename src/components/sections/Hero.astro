@@ -40,6 +40,17 @@ const f = defaults.form;
           ))}
         </ul>
 
+        <!-- Primary CTA (left column) -->
+        <div class="flex flex-wrap items-center gap-4 mb-6 fade-in-d2 max-md:hidden">
+          <a
+            href="#lead-form"
+            class="inline-block font-(family-name:--font-headline) font-extrabold text-[18px] uppercase tracking-wide py-4 px-10 rounded-lg bg-gradient-to-br from-amber to-amber-light text-white shadow-[0_4px_20px_var(--color-amber-glow)] transition-all duration-200 hover:translate-y-[-2px] hover:shadow-[0_8px_30px_var(--color-amber-glow)] animate-[breathe_2.5s_ease-in-out_infinite]"
+          >
+            Get My Cash Offer &rarr;
+          </a>
+          <span class="text-[13px] text-white/50">Free. No obligation. Takes 60 seconds.</span>
+        </div>
+
         <!-- Micro-testimonial -->
         {config.testimonials[0] && (
           <div class="mt-8 p-4 bg-gray-900/95 border border-white/10 rounded-[10px] max-w-[400px] fade-in-d3 max-md:hidden">
@@ -54,6 +65,10 @@ const f = defaults.form;
 
       <!-- Right: form -->
       <div id="lead-form" class="fade-in-d2">
+        <!-- FREE badge floating above card -->
+        <div class="text-center mb-[-10px] relative z-[1]">
+          <span class="inline-block py-1.5 px-4 rounded-full bg-green text-white text-[12px] font-bold uppercase tracking-wider shadow-[0_4px_12px_rgba(22,163,74,0.3)]">Free — No Obligation</span>
+        </div>
         <div class="bg-white rounded-[14px] shadow-[0_20px_60px_rgba(0,0,0,0.3),0_0_0_1px_rgba(255,255,255,0.08)] overflow-hidden" id="formCard">
           <!-- Progress bar -->
           <div class="h-[3px] bg-gray-100">

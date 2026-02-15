@@ -25,13 +25,13 @@ const faqSchema = {
     </h2>
 
     <div class="mt-8 max-w-[680px]">
-      {config.faq.map((item) => (
+      {config.faq.map((item, i) => (
         <div class="faq-item border-b border-gray-100">
           <button class="faq-q w-full bg-transparent border-none cursor-pointer flex justify-between items-center py-4 text-[15px] font-semibold text-gray-800 text-left hover:text-green transition-colors">
             {item.question}
             <span class="faq-icon text-lg text-gray-400 transition-transform duration-200 shrink-0 ml-3">+</span>
           </button>
-          <div class="faq-a max-h-0 overflow-hidden transition-[max-height] duration-300">
+          <div class:list={['faq-a overflow-hidden transition-[max-height] duration-300', i > 0 && 'max-h-0']}>
             <p class="pb-4 text-sm text-gray-500 leading-relaxed pr-12">{item.answer}</p>
           </div>
         </div>
@@ -43,7 +43,16 @@ const faqSchema = {
 </section>
 
 <script>
-  document.querySelectorAll('.faq-q').forEach((btn) => {
+  document.querySelectorAll('.faq-q').forEach((btn, index) => {
+    // Auto-open first item on page load
+    if (index === 0) {
+      btn.classList.add('active');
+      const icon = btn.querySelector('.faq-icon') as HTMLElement;
+      if (icon) icon.style.transform = 'rotate(45deg)';
+      const answer = btn.nextElementSibling as HTMLElement;
+      if (answer) answer.style.maxHeight = answer.scrollHeight + 'px';
+    }
+
     btn.addEventListener('click', () => {
       const answer = btn.nextElementSibling as HTMLElement;
       const icon = btn.querySelector('.faq-icon') as HTMLElement;
