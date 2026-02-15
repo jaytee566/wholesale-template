@@ -9,15 +9,14 @@ const config = getMarketConfig();
 const { solid = false } = Astro.props;
 ---
 
-<!-- Mobile call bar -->
-<div class="hidden max-md:block bg-green text-white text-center py-2.5 px-4 text-sm font-semibold relative z-[1001]">
-  <a href={`tel:${config.company.phone_raw}`} class="text-white underline">
-    Call now for a free offer: {config.company.phone}
-  </a>
-</div>
-
 <!-- Navigation -->
-<nav id="mainNav" class:list={['fixed top-0 left-0 right-0 z-[1000] transition-all duration-300 max-md:top-[42px]', solid && 'nav-scrolled']} data-solid={solid ? 'true' : undefined}>
+<nav id="mainNav" class:list={['fixed top-0 left-0 right-0 z-[1000] transition-all duration-300', solid && 'nav-solid']} data-solid={solid ? 'true' : undefined}>
+  <!-- Mobile call bar (inside fixed nav so it's part of the fixed block) -->
+  <div class="hidden max-md:block bg-green text-white text-center py-2.5 px-4 text-sm font-semibold">
+    <a href={`tel:${config.company.phone_raw}`} class="text-white underline">
+      Call now for a free offer: {config.company.phone}
+    </a>
+  </div>
   <div class="wrap">
     <div class="nav-inner flex items-center justify-between py-4 transition-all duration-300">
       <a href="/" class="font-(family-name:--font-headline) font-extrabold text-2xl uppercase tracking-tight text-white transition-colors duration-300 nav-logo">
@@ -76,6 +75,22 @@ const { solid = false } = Astro.props;
     color: var(--color-black);
   }
   #mainNav.nav-scrolled .nav-phone-link {
+    color: var(--color-green);
+  }
+
+  /* Inner page solid state: dark background, white text */
+  #mainNav.nav-solid {
+    background: var(--color-dark);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+  }
+  #mainNav.nav-solid .nav-inner {
+    padding-top: 0.625rem;
+    padding-bottom: 0.625rem;
+  }
+  #mainNav.nav-solid .nav-logo {
+    color: #ffffff;
+  }
+  #mainNav.nav-solid .nav-phone-link {
     color: var(--color-green);
   }
 </style>

@@ -1,107 +1,116 @@
 ---
-import type { GetStaticPaths } from 'astro';
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import Header from '@/components/layout/Header.astro';
 import Footer from '@/components/layout/Footer.astro';
 import Breadcrumb from '@/components/ui/Breadcrumb.astro';
-import FormSection from '@/components/sections/FormSection.astro';
 import FinalCTA from '@/components/sections/FinalCTA.astro';
 import { getMarketConfig } from '@/utils/market-config';
 import { defaults } from '@/config/defaults';
-import {
-  buildBreadcrumbSchema,
-  buildServiceSchema,
-  buildFAQPageSchema,
-  replaceTokens,
-} from '@/utils/seo';
+import { buildBreadcrumbSchema, replaceTokens } from '@/utils/seo';
 
-export const getStaticPaths: GetStaticPaths = () => {
+export function getStaticPaths() {
   const config = getMarketConfig();
-  return config.situations.map((sit) => ({
-    params: { slug: sit.slug },
-    props: { situation: sit },
-  }));
-};
+  return config.situations.map((s) => ({ params: { slug: s.slug } }));
+}
 
 const config = getMarketConfig();
-const { situation } = Astro.props;
-const pageData = defaults.situation_pages.pages[situation.slug];
-const shared = defaults.situation_pages.shared;
 const r = (t: string) => replaceTokens(t, config);
 
-// SEO
-const title = r(pageData.title_tag_template);
-const description = r(pageData.meta_description_template);
-const canonicalPath = `/situations/${situation.slug}`;
+const { slug } = Astro.params;
+const situation = config.situations.find((s) => s.slug === slug);
+if (!situation) {
+  return Astro.redirect('/404');
+}
 
-// Schemas
+const pageDefaults = defaults.situation_pages[situation.slug];
+
+const title = r(pageDefaults?.title_tag_template ?? `${situation.title} in {city} | {company}`);
+const description = r(pageDefaults?.meta_description_template ?? situation.short_desc);
+
 const breadcrumbSchema = buildBreadcrumbSchema(config.domain, [
   { name: 'Home', url: '/' },
-  { name: situation.title, url: canonicalPath },
+  { name: situation.title, url: `/situations/${situation.slug}` },
 ]);
 
-const serviceSchema = buildServiceSchema(
-  config,
-  `${situation.title} - Cash Home Buyer in ${config.city}`,
-  description,
-  `https://${config.domain}${canonicalPath}`,
-);
-
-const faqItems = pageData.faq.map((f) => ({
-  question: f.question,
-  answer: r(f.answer_template),
-}));
-const faqSchema = buildFAQPageSchema(faqItems);
-
-// Related situations
-const relatedSituations = pageData.related_slugs
-  .map((slug: string) => config.situations.find((s) => s.slug === slug))
-  .filter(Boolean);
-
-// Testimonial
-const testimonial = config.testimonials[pageData.testimonial_index];
-
-function getInitial(name: string): string {
-  return name.charAt(0).toUpperCase();
-}
+const serviceSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Service',
+  name: `${situation.title} - Cash Home Buyers`,
+  description: situation.short_desc,
+  provider: {
+    '@type': 'RealEstateAgent',
+    name: config.company.name,
+    telephone: `+1${config.company.phone_raw}`,
+  },
+  areaServed: {
+    '@type': 'City',
+    name: config.city,
+  },
+};
 ---
 
-<BaseLayout
-  title={title}
-  description={description}
-  canonicalPath={canonicalPath}
-  jsonLd={[breadcrumbSchema, serviceSchema, faqSchema]}
->
+<BaseLayout title={title} description={description} canonicalPath={`/situations/${situation.slug}`} jsonLd={[breadcrumbSchema, serviceSchema]}>
   <Header solid />
-  <Breadcrumb
-    items={[{ label: 'Home', href: '/' }]}
-    current={situation.title}
-  />
+  <Breadcrumb items={[{ label: 'Home', href: '/' }]} current={situation.title} />
 
   <main>
-    <!-- Section 1: Dark inner-page hero -->
-    <section class="pb-12 text-white relative overflow-hidden" style="background: linear-gradient(165deg, #0a0f1a, #111827 60%, #162030);">
-      <div class="absolute inset-0 pointer-events-none" style="background-image: linear-gradient(rgba(255,255,255,0.015) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.015) 1px, transparent 1px); background-size: 48px 48px;"></div>
-      <div class="wrap relative z-[1] pt-4 pb-8">
-        <span class="font-(family-name:--font-headline) font-bold text-[13px] uppercase tracking-[0.12em] text-green mb-3 inline-block">
-          {situation.title}
-        </span>
-        <h1 class="font-(family-name:--font-headline) font-extrabold uppercase leading-[1.08] text-white mb-4" style="font-size: clamp(30px, 4.5vw, 50px);">
+    <!-- Page header -->
+    <section class="pb-8">
+      <div class="wrap">
+        <span class="font-(family-name:--font-headline) font-bold text-[13px] uppercase tracking-[0.12em] text-green mb-3 inline-block">{defaults.situations.tag}</span>
+        <h1 class="font-(family-name:--font-headline) font-extrabold uppercase leading-[1.08] text-dark mb-5" style="font-size: clamp(28px, 4.5vw, 48px);">
           {situation.hero_headline}
         </h1>
-        <p class="text-[17px] text-white/60 leading-relaxed max-w-[640px]">
+        <p class="text-[17px] text-gray-500 leading-relaxed max-w-[640px]">
           {situation.short_desc}
         </p>
-        <div class="mt-7 flex flex-wrap gap-3">
+      </div>
+    </section>
+
+    <!-- Content section (from defaults) -->
+    {pageDefaults?.content && (
+      <section class="py-12">
+        <div class="wrap max-w-[700px] prose-content" set:html={r(pageDefaults.content)} />
+      </section>
+    )}
+
+    <!-- How it works summary -->
+    <section class="py-14 bg-gray-50 border-y border-gray-100">
+      <div class="wrap max-w-[700px] reveal">
+        <h2 class="font-(family-name:--font-headline) font-extrabold uppercase leading-[1.08] text-dark mb-6" style="font-size: clamp(22px, 3vw, 32px);">
+          {defaults.how_it_works.title}
+        </h2>
+        {defaults.how_it_works.steps.map((step, i) => (
+          <div class:list={['flex items-start gap-4 mb-6 last:mb-0', i > 0 && `reveal-d${Math.min(i, 3)}`]}>
+            <span class="w-10 h-10 rounded-full bg-green text-white flex items-center justify-center font-(family-name:--font-headline) font-bold text-sm shrink-0">
+              {i + 1}
+            </span>
+            <div>
+              <h3 class="font-(family-name:--font-headline) font-bold text-[16px] uppercase mb-0.5">{step.title}</h3>
+              <p class="text-[14px] text-gray-500 leading-relaxed">{step.description}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <!-- CTA section -->
+    <section class="py-14 bg-green-light border-y border-green/10">
+      <div class="wrap text-center reveal">
+        <h2 class="font-(family-name:--font-headline) font-extrabold uppercase text-dark mb-3" style="font-size: clamp(22px, 3.5vw, 36px);">
+          {defaults.mid_cta.headline}
+        </h2>
+        <p class="text-gray-500 mb-7">{defaults.mid_cta.sub_text}</p>
+        <div class="flex justify-center flex-wrap gap-3">
           <a
-            href="#lead-form"
-            class="inline-block font-(family-name:--font-headline) font-bold text-[15px] uppercase tracking-wide py-[13px] px-8 rounded-lg bg-gradient-to-br from-amber to-amber-light text-white shadow-[0_4px_16px_var(--color-amber-glow)] transition-all duration-200 hover:translate-y-[-1px] hover:shadow-[0_6px_24px_var(--color-amber-glow)]"
+            href="/#lead-form"
+            class="inline-block font-(family-name:--font-headline) font-bold text-[17px] uppercase tracking-wide py-[15px] px-9 rounded-lg bg-gradient-to-br from-amber to-amber-light text-white shadow-[0_4px_16px_var(--color-amber-glow)] transition-all duration-200 hover:translate-y-[-1px] hover:shadow-[0_6px_24px_var(--color-amber-glow)]"
           >
-            Get My Cash Offer
+            {defaults.mid_cta.button_text}
           </a>
           <a
             href={`tel:${config.company.phone_raw}`}
-            class="inline-flex items-center gap-2 py-[13px] px-7 text-[15px] font-semibold text-white border-2 border-white/15 rounded-lg transition-all duration-200 hover:border-white/30 hover:bg-white/[0.04]"
+            class="inline-flex items-center gap-2 py-[15px] px-7 text-base font-semibold text-dark border-2 border-gray-200 rounded-lg transition-all duration-200 hover:border-green hover:text-green"
           >
             Call {config.company.phone}
           </a>
@@ -109,134 +118,15 @@ function getInitial(name: string): string {
       </div>
     </section>
 
-    <!-- Section 2: How We Help — long-form content -->
-    <section class="py-16">
-      <div class="wrap">
-        <span class="font-(family-name:--font-headline) font-bold text-[13px] uppercase tracking-[0.12em] text-green mb-3 inline-block">
-          {shared.how_we_help_tag}
-        </span>
-        <h2 class="font-(family-name:--font-headline) font-extrabold uppercase leading-[1.08] text-dark mb-8" style="font-size: clamp(24px, 3.5vw, 36px);">
-          {r(pageData.content_heading_template)}
-        </h2>
-        {pageData.content_paragraphs.map((para: string, i: number) => (
-          <p class:list={[
-            'reveal text-[15px] text-gray-600 leading-relaxed mb-6 max-w-[700px]',
-            i === 1 && 'reveal-d1',
-            i === 2 && 'reveal-d2',
-            i === 3 && 'reveal-d3',
-          ]}>
-            {r(para)}
-          </p>
-        ))}
-      </div>
-    </section>
-
-    <!-- Section 3: Mid-page lead form -->
-    <FormSection
-      headline={r(shared.form_section_headline_template)}
-      subtitle={shared.form_section_subtitle}
-    />
-
-    <!-- Section 4: Testimonial -->
-    {testimonial && (
-      <section class="py-16 bg-gray-50">
-        <div class="wrap max-w-[600px]">
-          <div class="reveal bg-white rounded-xl p-6 shadow-[0_1px_4px_rgba(0,0,0,0.08),0_4px_12px_rgba(0,0,0,0.04)] border border-gray-100/80">
-            {/* Google branding row */}
-            <div class="flex items-center justify-between mb-4">
-              <div class="flex items-center gap-2">
-                <svg width="18" height="18" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M44.5 20H24v8.5h11.8C34.7 33.9 30.1 37 24 37c-7.2 0-13-5.8-13-13s5.8-13 13-13c3.1 0 5.9 1.1 8.1 2.9l6.4-6.4C34.6 4.1 29.6 2 24 2 11.8 2 2 11.8 2 24s9.8 22 22 22c11 0 21-8 21-22 0-1.3-.2-2.7-.5-4z" fill="#4285F4" />
-                  <path d="M3.2 14.1l7 5.1C12.1 15 17.5 11 24 11c3.1 0 5.9 1.1 8.1 2.9l6.4-6.4C34.6 4.1 29.6 2 24 2 14.8 2 6.9 7 3.2 14.1z" fill="#EA4335" />
-                  <path d="M24 46c5.5 0 10.4-1.9 14.3-5.1l-6.6-5.6C29.5 37 27 38 24 38c-6 0-11.1-4-12.9-9.5l-7 5.4C7.6 41 15.2 46 24 46z" fill="#34A853" />
-                  <path d="M44.5 20H24v8.5h11.8c-.9 3-2.8 5.4-5.5 7.1l6.6 5.6C40.7 37.5 46 31.5 46 24c0-1.3-.2-2.7-.5-4z" fill="#FBBC04" />
-                </svg>
-                <span class="text-[11px] text-gray-400 font-medium">Posted on Google</span>
-              </div>
-            </div>
-
-            {/* Stars */}
-            <div class="flex items-center gap-[2px] mb-3">
-              {[1,2,3,4,5].map(() => (
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="#FBBC04" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
-                </svg>
-              ))}
-            </div>
-
-            {/* Situation context */}
-            <div class="text-[11px] text-gray-400 font-medium mb-2 uppercase tracking-wide">{testimonial.problem}</div>
-
-            {/* Review text */}
-            <blockquote class="text-[14px] text-gray-800 leading-relaxed mb-4">"{testimonial.outcome}"</blockquote>
-
-            {/* Author row */}
-            <div class="flex items-center gap-3">
-              <div class="w-9 h-9 rounded-full bg-gray-600 text-white flex items-center justify-center text-sm font-bold shrink-0">
-                {getInitial(testimonial.name)}
-              </div>
-              <div>
-                <div class="text-[13px] font-semibold text-gray-800">{testimonial.name}</div>
-                <div class="text-[11px] text-gray-400">{testimonial.location}</div>
-              </div>
-            </div>
-
-            {/* Timeframe badge */}
-            <span class="inline-block mt-3 py-[3px] px-2.5 bg-green-bg text-green rounded-xl text-[11px] font-semibold">
-              Closed in {testimonial.timeframe}
-            </span>
-          </div>
-        </div>
-      </section>
-    )}
-
-    <!-- Section 5: Situation-specific FAQ -->
-    <section class="py-16">
-      <div class="wrap">
-        <span class="font-(family-name:--font-headline) font-bold text-[13px] uppercase tracking-[0.12em] text-green mb-3 inline-block">
-          {shared.faq_tag}
-        </span>
-        <h2 class="font-(family-name:--font-headline) font-extrabold uppercase leading-[1.08] text-dark mb-4" style="font-size: clamp(24px, 3.5vw, 36px);">
-          {shared.faq_title}
-        </h2>
-        <div class="mt-8 max-w-[680px]">
-          {faqItems.map((item) => (
-            <div class="sit-faq-item border-b border-gray-100">
-              <button class="sit-faq-q w-full bg-transparent border-none cursor-pointer flex justify-between items-center py-4 text-[15px] font-semibold text-gray-800 text-left hover:text-green transition-colors">
-                {item.question}
-                <span class="sit-faq-icon text-lg text-gray-400 transition-transform duration-200 shrink-0 ml-3">+</span>
-              </button>
-              <div class="sit-faq-a max-h-0 overflow-hidden transition-[max-height] duration-300">
-                <p class="pb-4 text-sm text-gray-500 leading-relaxed pr-12">{item.answer}</p>
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
-    </section>
-
-    <!-- Section 6: Internal links -->
+    <!-- Internal links -->
     <section class="py-12">
-      <div class="wrap">
-        <h3 class="font-(family-name:--font-headline) font-bold text-[15px] uppercase text-dark mb-4">
-          {shared.internal_links_title}
-        </h3>
-        <div class="flex flex-wrap gap-x-4 gap-y-2 text-[15px] text-gray-500">
-          <a href="/how-it-works" class="text-green font-semibold underline hover:text-green-dark transition-colors">How It Works</a>
-          <span class="text-gray-300 max-sm:hidden">|</span>
-          <a href="/about" class="text-green font-semibold underline hover:text-green-dark transition-colors">About Us</a>
-          {relatedSituations.map((sit) => (
-            <>
-              <span class="text-gray-300 max-sm:hidden">|</span>
-              <a href={`/situations/${sit!.slug}`} class="text-green font-semibold underline hover:text-green-dark transition-colors">
-                {sit!.title}
-              </a>
-            </>
-          ))}
-          {/* Blog placeholders — uncomment when blog pages exist */}
-          {/* <span class="text-gray-300 max-sm:hidden">|</span> */}
-          {/* <a href="/blog/how-to-sell-your-house-fast" class="text-green font-semibold underline hover:text-green-dark transition-colors">How to Sell Your House Fast</a> */}
-        </div>
+      <div class="wrap text-center text-[15px] text-gray-500 space-x-4">
+        <a href="/how-it-works" class="text-green font-semibold underline hover:text-green-dark transition-colors">See our process</a>
+        <span class="text-gray-300">|</span>
+        <a href="/about" class="text-green font-semibold underline hover:text-green-dark transition-colors">About us</a>
+        {config.situations.filter((s) => s.slug !== situation.slug).slice(0, 2).map((s) => (
+          <><span class="text-gray-300">|</span><a href={`/situations/${s.slug}`} class="text-green font-semibold underline hover:text-green-dark transition-colors">{s.title}</a></>
+        ))}
       </div>
     </section>
   </main>
@@ -244,30 +134,3 @@ function getInitial(name: string): string {
   <FinalCTA />
   <Footer />
 </BaseLayout>
-
-<script>
-  // FAQ accordion for situation-specific questions
-  document.querySelectorAll('.sit-faq-q').forEach((btn) => {
-    btn.addEventListener('click', () => {
-      const answer = btn.nextElementSibling as HTMLElement;
-      const icon = btn.querySelector('.sit-faq-icon') as HTMLElement;
-      const isOpen = btn.classList.contains('active');
-
-      // Close all
-      document.querySelectorAll('.sit-faq-q').forEach((b) => {
-        b.classList.remove('active');
-        const a = b.nextElementSibling as HTMLElement;
-        const ic = b.querySelector('.sit-faq-icon') as HTMLElement;
-        if (a) a.style.maxHeight = '';
-        if (ic) ic.style.transform = '';
-      });
-
-      // Open this one if it wasn't open
-      if (!isOpen && answer) {
-        btn.classList.add('active');
-        answer.style.maxHeight = answer.scrollHeight + 'px';
-        if (icon) icon.style.transform = 'rotate(45deg)';
-      }
-    });
-  });
-</script>
