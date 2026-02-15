@@ -36,5 +36,53 @@ export function replaceTokens(text: string, config: MarketConfig): string {
     .replace(/\{homes_purchased\}/g, config.market_data.homes_purchased)
     .replace(/\{google_rating\}/g, config.market_data.google_rating)
     .replace(/\{years_in_business\}/g, String(config.market_data.years_in_business))
-    .replace(/\{avg_close_days\}/g, String(config.market_data.avg_close_days));
+    .replace(/\{avg_close_days\}/g, String(config.market_data.avg_close_days))
+    .replace(/\{avg_days_on_market\}/g, String(config.market_data.avg_days_on_market));
+}
+
+export function buildServiceSchema(
+  config: MarketConfig,
+  serviceName: string,
+  serviceDescription: string,
+  pageUrl: string,
+): Record<string, unknown> {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'Service',
+    name: serviceName,
+    description: serviceDescription,
+    provider: {
+      '@type': 'RealEstateAgent',
+      name: config.company.name,
+      telephone: `+1${config.company.phone_raw}`,
+      address: {
+        '@type': 'PostalAddress',
+        streetAddress: config.company.address.street,
+        addressLocality: config.company.address.city,
+        addressRegion: config.company.address.state,
+        postalCode: config.company.address.zip,
+        addressCountry: 'US',
+      },
+    },
+    areaServed: {
+      '@type': 'City',
+      name: config.city,
+      containedInPlace: { '@type': 'State', name: config.state_full },
+    },
+    url: pageUrl,
+  };
+}
+
+export function buildFAQPageSchema(
+  items: { question: string; answer: string }[],
+): Record<string, unknown> {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: items.map((item) => ({
+      '@type': 'Question',
+      name: item.question,
+      acceptedAnswer: { '@type': 'Answer', text: item.answer },
+    })),
+  };
 }
